@@ -1,0 +1,134 @@
+/* ===== Admin Dashboard Specific Styles ===== */
+body {
+    font-family: 'system-ui', sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    margin: 0;
+}
+
+.admin-container {
+    display: flex;
+}
+
+/* Sidebar Navigation */
+.admin-sidebar {
+    width: 250px;
+    background-color: #2c3e50;
+    color: white;
+    min-height: 100vh;
+    padding-top: 1rem;
+}
+
+.admin-sidebar h2 {
+    text-align: center;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #34495e;
+}
+
+.admin-nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.admin-nav li {
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.admin-nav li:hover, .admin-nav li.active {
+    background-color: #3498db;
+}
+
+/* Main Content Area */
+.admin-main-content {
+    flex-grow: 1;
+    padding: 2rem;
+}
+
+.admin-section {
+    display: none; /* All sections hidden by default */
+}
+
+.admin-section.active {
+    display: block; /* Show the active section */
+}
+
+.admin-section h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 1rem;
+}
+
+/* Table Styling */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-color: white;
+}
+
+.data-table th, .data-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.data-table th {
+    background-color: #f2f2f2;
+}
+
+.table-actions button {
+    border: none;
+    padding: 0.5rem 1rem;
+    margin-right: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+}
+
+.edit-btn { background-color: #2980b9; }
+.delete-btn { background-color: #c0392b; }
+
+/* Form Styling */
+.admin-form {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 5px;
+    max-width: 600px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-actions button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+
+.save-btn { background-color: #27ae60; }
+.cancel-btn { background-color: #7f8c8d; }

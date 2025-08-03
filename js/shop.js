@@ -17,32 +17,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const categoryFilter = document.getElementById('category-filter');
     const sortBy = document.getElementById('sort-by');
 
-    // --- Function to Render Products ---
-    function renderProducts(productsToRender) {
-        shopGrid.innerHTML = ''; // Clear the grid
-        productsToRender.forEach(product => {
-            const productCard = document.createElement('div');
-            productCard.className = 'product-card';
-            // The card itself is now a link to the product page
-            productCard.innerHTML = `
-                <a href="product.html?id=${product.id}" class="product-link">
-                    <div class="product-image-container">
-                        <img src="${product.image}" alt="${product.name}">
-                    </div>
-                    <div class="product-info">
-                        <h3>${product.name}</h3>
-                        <p class="price">Rs. ${product.price.toFixed(2)}</p>
-                    </div>
-                </a>
-                <div class="product-action">
-                    <button class="add-cart" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}">Add to Cart</button>
+    // --- Function to Render Products (inside shop.js) ---
+function renderProducts(productsToRender) {
+    shopGrid.innerHTML = ''; // Clear the grid
+    productsToRender.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card';
+        // The card itself is now a link to the product page
+        productCard.innerHTML = `
+            <a href="product.html?id=${product.id}" class="product-link">
+                <div class="product-image-container">
+                    <img src="${product.image}" alt="${product.name}">
                 </div>
-            `;
-            shopGrid.appendChild(productCard);
-        });
-        
-        attachAddToCartListeners();
-    }
+                <div class="product-info">
+                    <h3>${product.name}</h3>
+                    <p class="price">Rs. ${product.price.toFixed(2)}</p>
+                </div>
+            </a>
+            <div class="product-action">
+                 <button class="add-cart" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}">Add to Cart</button>
+            </div>
+        `;
+        shopGrid.appendChild(productCard);
+    });
+    
+    attachAddToCartListeners();
+}
     // --- Filtering and Sorting Logic ---
     function applyFiltersAndSorting() {
         let filteredProducts = [...allProducts];
