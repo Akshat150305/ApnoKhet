@@ -1,157 +1,231 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apno Khet</title>
-    <link rel="stylesheet" href="../styles/style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet">
+
+
+    <title>Shop</title>
 </head>
+
 <body>
-    <div class="container">
-        <header>
-            <div class="navigationbar">
-                <div id="title">
-                    <img src="../images/logo.webp" id="logo">
-                    <h1>Apno Khet</h1>
-                </div>
-                <div class="navigationtool">
-                    <ul class="navigationbutton">
-                        <li id="li1"><a href="\#">Home</a></li>
-                        <li id="li2"><a href="\#">Shop</a></li>
-                        <li id="li3"><a href="\#">Services</a></li>
-                        <li id="li4"><a href="\#">About Us</a></li>
-                    </ul>
-
-                    <form action="#" method="get" id="searchbar">
-                                    <input type="search" name="search" placeholder=" search here" style="border-radius: 2rem; box-sizing: border-box;" />
-                                    <button type="submit"></button>
-                    </form> 
-                </div>
-            </div>
-        </header>
-
-        <main>
-            <div class="maincontainer">
-            
-                <div class="landingpage">
-                    <div class="shadow"></div>
-                    <div class="text1">
-                        <h1 id="solution">Your Green Solutions Await</h1><br>
-                        <h5 id="lifestyle">Your Greener Lifestyle Starts Here - Discover</h5>
-                        <h5 id="simple">Plants and Services Made Simple</h5>
-                        <button id="shopnow">Shop Now</button>
-                    </div>
-                        
-                </div>
-               
-
-                <div class="plantstypes">
-                    <div class="indoor">
-                        <div class="shadow"></div>
-                        <h1 id="indoortext">Indoor Plants</h1>
-                    </div>
-                    <div class="herbal">
-                        <div class="shadow"></div>
-                        <h1 id="herbaltext">Herbal Plants</h1>
-                    </div>
-                    <div class="flowering">
-                        <div class="shadow"></div>
-                        <h1 id="floweringtext">Flowering Plants</h1>
-                    </div>
-                    
-                </div>
-
-                <div class="aboutapnokhet">
-                    <div class="aboutlogo">
-                        <img src="../images/aboutapnokhet.jpg" alt="">
-                    </div>
-                    <div class="aboutapnokhet_text">
-                        <h3 id="heading">Rooted in Nature, Growing with You</h3>
-                        <br><br>
-                        <p id="p1">
-                            Apno Khet is your trusted green partner — from delivering
-                            beautiful indoor and outdoor plants to offering expert care, on-
-                            site gardening, and monthly plant maintenance subscriptions for
-                            homes, offices, societies, and restaurants.
-                        </p>
-                        <br><br>
-                        <p id="p2">
-                            Our mission is simple to make plant care accessible for working professionals, businesses and modern spaces through reliable, affordable and aesthetic green solutions.
-                        </p>
-                        <br><br>
-                        <p id="p3">
-                            Whether it's regular plant care or developing a lush garden from scratch, our monthly services ensure your space stays vibrant and healthy all year round.
-                        </p>
-                        <br><br>
-                        <p id="p4">
-                            We’re not just selling plants — we’re building a greener, smarter ecosystem for modern living.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="featuredproducts">
-                    <div class="featuredproductheading"><h1>Featured Products</h1></div>
-                    <div class="products">
-                        <div class="products1">
-                            <div class="indoorkit">
-                                <div class="indoorkitimage"></div>
-                                <div class="text">
-                                    <p>Fresh indoor kit</p>
-                                    <p id="price">
-                                        $xyz
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="ayuglow">
-                                <div class="ayuglowimage"></div>
-                                <div class="text">
-                                    <p>Ayuglow Kit</p>
-                                    <p id="price">
-                                        $xyz
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="butterfly">
-                                <div class="butterflyimage"></div>
-                                <div class="text">
-                                    <p>Butterfly Pea kit Kit</p>
-                                    <p id="price">
-                                        $xyz
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="products2">
-                            <div class="lily">
-                                <div class="lilyimage"></div>
-                                <div class="text">
-                                    <p>Peace Lily</p>
-                                    <p id="price">
-                                        $xyz
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="laurentii">
-                                <div class="laurentiiimage"></div>
-                                <div class="text">
-                                    <p>Laurentii</p>
-                                    <p id="price">
-                                        $xyz
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="allproducts">
-                        <a href="\#">View all products ></a>
-                    </div>
-                </div>
+    <header>
+        <nav class="navigationbar">
+            <div id="title">
+                <img src="../images/logo.webp" id="logo" alt="Apno Khet Logo" />
                 
-                <div class="services">
-                    <div class="text">
+            </div>
+            <div class="navigationtool">
+                <ul class="navigationbutton">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">About Us</a></li>
+                </ul>
+
+                <form action="#" method="get" id="searchbar">
+                    <input type="search" name="search" placeholder="Search here" />
+                    <button type="submit">🔍</button>
+                </form>
+
+                <a href="cart.html" class="cart-icon">
+                    <img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart--v1.png" alt="Cart">
+                    <span class="cart-item-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="hero">
+        <!-- <div class="shadow">
+
+        </div> -->
+        <div class="leaf leaf1">
+            <img src="../images/two_leaf.png" alt="Leaf">
+        </div>
+
+        <div class="leaf leaf3">
+            <img src="../images/leaf_blur_2.png" alt="Leaf">
+        </div>
+        <div class="leaf leaf4">
+            <img src="../images/Leaf_blur.png" alt="Leaf">
+        </div>
+        <div class="leaf leaf5">
+            <img src="../images/Leaf_element.png" alt="Leaf">
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-image">
+                <img src="../images/laurentii.jpg" alt="Apno Khet Plants">
+            </div>
+            
+            <div class="hero-text">
+                <h2>Apno Khet<br><!--your green solutions--></h2>
+                <p>Your Greener Lifestyle Starts Here - Discover Plants and Services Made Simple</p>
+                <br>
+                <br>
+                <br>
+                <a href="#" class="hero-btn">SHOP NOW</a>
+            </div>
+        </div>
+    </main>
+
+    <section class="featured-products">
+        <h2>Featured Products</h2>
+
+        <div class="product-filters">
+            <button class="filter active">Best Seller</button>
+            <button class="filter">New Arrivals</button>
+            <button class="filter">Sales & Offers</button>
+        </div>
+
+        <div class="products-grid">
+            <!-- Product Card -->
+            <div class="product-card">
+                <img src="../images/ayuglow.jpg" alt="Chamomile Botanical Blend">
+                <!-- <h3>Chamomile Botanical Blend</h3> -->
+                 <h3>Indoor Flower Kit</h3>
+                <div class="stars">★★★★★</div>
+                <p class="price">Rs. 350</p>
+                <button class="add-cart">Add to Cart</button>
+            </div>
+
+            <!-- Repeat for other products -->
+            <div class="product-card">
+                <img src="../images/indoor.jpg" alt="White Blend Organic Tea">
+                <!-- <h3>White Blend Organic Tea</h3> -->
+                 <h3>Gifting Flower</h3>
+                <div class="stars">★★★★★</div>
+                <p class="price">Rs. 499</p>
+                <button class="add-cart">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <img src="../images/indoorkit.jpg" alt="Red Rooibos Organic, Fair Trade">
+                <!-- <h3>Red Rooibos Organic, Fair Trade</h3> -->
+                 <h3>Plants</h3>
+                <div class="stars">★★★★★</div>
+                <p class="price">Rs. 599</p>
+                <button class="add-cart">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <img src="../images/butterfly.jpg" alt="Red Raspberry Organic White Tea">
+                <!-- <h3>Red Raspberry Organic White Tea</h3> -->
+                 <h3>Butterfly Pea</h3>
+                <div class="stars">★★★★★</div>
+                <p class="price">Rs. 625</p>
+                <button class="add-cart">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <img src="../images/indoorkit.jpg" alt="Red Rooibos Organic, Fair Trade">
+                <!-- <h3>Red Rooibos Organic, Fair Trade</h3> -->
+                 <h3>Plants kit</h3>
+                <div class="stars">★★★★★</div>
+                <p class="price">Rs. 599</p>
+                <button class="add-cart">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <img src="../images/butterfly.jpg" alt="Red Raspberry Organic White Tea">
+                <!-- <h3>Red Raspberry Organic White Tea</h3> -->
+                 <h3>Butterfly</h3>
+                <div class="stars">★★★★★</div>
+                <p class="price">Rs. 625</p>
+                <button class="add-cart">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <img src="../images/indoorkit.jpg" alt="Red Rooibos Organic, Fair Trade">
+                <!-- <h3>Red Rooibos Organic, Fair Trade</h3> -->
+                 <h3>Plants</h3>
+                <div class="stars">★★★★★</div>
+                <p class="price">Rs. 599</p>
+                <button class="add-cart">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <img src="../images/butterfly.jpg" alt="Red Raspberry Organic White Tea">
+                <!-- <h3>Red Raspberry Organic White Tea</h3> -->
+                 <h3>Butterfly Pea</h3>
+                <div class="stars">★★★★★</div>
+                <p class="price">Rs. 625</p>
+                <button class="add-cart">Add to Cart</button>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="why-choose-us">
+
+        <div class="leaves leave1">
+            <img src="../images/left_leaf.png" alt="left_leaf">
+        </div>
+        <div class="leaves leave2">
+            <img src="../images/middle_leaf.png" alt="middle_leaf">
+        </div>
+        <div class="leaves leave3">
+            <img src="../images/right_leaf.png" alt="right_leaf">
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <div class="why-heading">
+            <h2><span>ApnoKhet</span> has the finest quality speciality trees, herbs, plants and flowers from around the
+                world.</h2>
+        </div>
+        <br>
+        <br>
+
+
+        <div class="why-cards">
+            <div class="why-card">
+                <!-- <img src="../images/handmade.png" alt="Handmade"> -->
+                <img src="../images/indoorkit.jpg" alt="indoor plants">
+                <!-- <h3>Handmade</h3> -->
+                <h3>Indoor</h3>
+                <!-- <p>We carefully handcraft exquisite teas, herbal blends, spices, and floral from every corner of the 
+                    globe.</p> -->
+                <p>We have a great variety of indoor plants for homes and restaurants.</p>
+            </div>
+            <div class="why-card">
+                <!-- <img src="../images/freshness.png" alt="Freshness"> -->
+                <img src="../images/flowering.jpg" alt="flowering plants">
+                <!-- <h3>Freshness</h3> -->
+                 <h3>Flowering</h3>
+                <!-- <p>We are dedicated to crafting fresh teas that embody the essence of their natural ingredients.</p> -->
+                 <p>Our flowering Plants makes your place asthetic with their cool and calm vibes.</p>
+            </div>
+            <div class="why-card">
+                <!-- <img src="../images/sustainability.png" alt="Sustainability"> -->
+                <img src="../images/indoor.jpg" alt="herbal plants">
+                <!-- <h3>Sustainability</h3> -->
+                <h3>Herbal Plants</h3>
+                <!-- <p>We source our ingredients from sustainable gardens, ensuring every cup of tea is eco-friendly.</p> -->
+                <p>Our herbal plants are carefully grown with suitable soil and temperature for best quality results.</p>
+            </div>
+        </div>
+    </section>
+
+<!--Services block added by me-->
+
+    <section class="services">
+        <div class="text">
                         <h1 id="heading">Our Services</h1>
+                        <br>
+                        <br>
+                        <br>
                         <p>We offer comprehensive gardening and plant care services to help you create and maintain beautiful green spaces. Our team of experts provides personalized solutions tailored to your needs.</p>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
                     </div>
                     <div class="booking">
                         <div class="booking1">
@@ -164,6 +238,8 @@
                                 <p id="p2">Regular plant care, including watering, pruning, and pest control.</p>
                             </div>
                         </div>
+                        <br>
+                        <br>
                         <div class="booking2">
                             <div class="landscaping">
                                 <p id="p1">Landscaping Services</p>
@@ -175,61 +251,159 @@
                             </div>
                         </div>
                     </div>
+    </section>
+
+
+
+    <section class="testimonials">
+        <img src="../images/left_outline_leaf.png" alt="" class="decor-leaf left">
+        <img src="../images/right_leaf.png" alt="" class="decor-leaf right">
+
+        <div class="testimonials-content">
+            <h4>What Our Customers Say</h4>
+            <br>
+            <br>
+            <div class="testimonial-slider">
+                <div class="testimonial-slide active">
+                    <p class="testimonial-text">
+                        "This indoor kit is absolutely fantastic! It created a calm vibe in my
+                        cafe and with its vibrant colors it made the cafe look more joyful and living."
+                    </p>
+                    <img src="../images/testimonial_avatar.png" alt="Customer" class="customer-img">
+                    <p class="customer-name">Wendy Rose</p>
                 </div>
-                <div class="gallery">
-                    <h1>Explore Apno Khet: Our Nursery in Photos</h1>
-                    <div id="photos">
-                        <img src="../images/1.jpg" alt="">
-                        <img src="../images/2.jpg" alt="">
-                        <img src="../images/3.jpg" alt="">
-                        <img src="../images/4.jpg" alt="">
-                        <img src="../images/6.jpg" alt="">
-                        <img src="../images/7.jpg" alt="">
-                    </div>
-                </div>
-                
-                <div class="contactus">
-                    <div class="text">
-                        <h1>Contact Us</h1>
-                        <br>
-                        <h3>Better yet, see us in person!</h3>
-                        
-                        <p>
-                            Have questions or need expert advice? We’re here to help! Reach out for
-                            personalized support or a free consultation — just send us a message and we’ll
-                            get back to you shortly.
-                        </p>
-                        <br>
-                        <p>
-                            Apno Khet
-                            Urbana Jewels Muhana Mandi Road Mahasinghpura,keshyawala
-                            Jaipur Rajasthan  302029
-                        </p>
-                        <p id="p1">
-                            9352268085/apnokhet@gmail.com
-                        </p>
-                        <br>
-                        <h3>
-                            Hours
-                        </h3>
-                        <p>
-
-                        </p>
-                    </div>
-                    <div class="hello">
-
-                    </div>
-
+                <div class="testimonial-slide">
+                    <p class="testimonial-text">
+                        "The flowering plants I ordered are beautiful and were delivered in perfect condition. I'm so happy with my purchase!"
+                    </p>
+                    <img src="../images/testimonial_avatar.png" alt="Customer" class="customer-img">
+                    <p class="customer-name">John Doe</p>
                 </div>
             </div>
-        </main>
+        </div>
 
-        <footer>
-            <div class="end">
-                
-            </div>
-        </footer>
+        <button class="testimonial-nav prev">&#10094;</button>
+        <button class="testimonial-nav next">&#10095;</button>
+    </section>
+    <!-- <section class="testimonials">
+        
+        <img src="../images/leaf-left.png" alt="" class="decor-leaf left">
+        <img src="../images/leaf-right.png" alt="" class="decor-leaf right">
+
+        <div class="testimonials-content">
+            <h4>What Our Customers Say</h4>
+            <br>
+            <br>    
+            <p class="testimonial-text">
+                <!-- “This organic tea is absolutely fantastic! The flavor is so fresh,
+                it feels like it was just picked from the garden and poured into my cup.” -->
+                <!-- "This indoor kit is absolutely fantastic! It created a calm vibe in my
+                cafe and with its vibrant colors it made the cafe look more joyful and living."
+            </p>
+            <img src="../images/testimonial_avatar.png" alt="Customer" class="customer-img">
+            <p class="customer-name">Wendy Rose</p>
+        </div>
+
+        
+        <button class="testimonial-nav prev">&#10094;</button>
+        <button class="testimonial-nav next">&#10095;</button>
+    </section> --> 
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     
-    </div>
+
+
+    <section class="newsletter">
+        <div class="newsletter-content">
+            <h2>Stay Connected</h2>
+            <p>
+                Subscribe to our newsletters now and stay up to date with <br>
+                new collections and exclusive offers.
+            </p>
+
+            <form class="subscribe-form">
+                <input type="email" placeholder="Your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+
+            <!-- Decorative leaves/tea images -->
+            <img src="../images/left_solid_leaf.png" alt="Leaf left" class="decor-leaf left">
+            <img src="../images/right_solid_teacup.png" alt="Leaf right" class="decor-leaf right">
+        </div>
+    </section>
+
+
+
+
+
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <!-- Left: Logo & Social -->
+            <div class="footer-brand">
+                <img src="../images/logo.webp" alt="Apno Khet Logo">
+                <div class="social-icons">
+                    <a href="#"><img src="../images/facebook.png" alt="Facebook"></a>
+                    <a href="#"><img src="../images/instagram.png" alt="Instagram"></a>
+                    <a href="#"><img src="../images/x.png" alt="Twitter/X"></a>
+                </div>
+            </div>
+
+            <!-- Middle: Links -->
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="#">Company</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Quality</a></li>
+                        <li><a href="#">Gifting</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="#">Indoor Plants</a></li>
+                        <li><a href="#">Flowering Plants</a></li>
+                        <li><a href="#">Packaged Seeds</a></li>
+                        <li><a href="#">Gardening Tools</a></li>
+                        <li><a href="#">Herbal Plants</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Help Center</h4>
+                    <ul>
+                        <li><a href="#">Delivery Information</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Returns & Refunds</a></li>
+                        <li><a href="#">Privacy Notice</a></li>
+                        <li><a href="#">Shopping</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right: Get in touch -->
+            <div class="footer-contact">
+                <h4>Get in touch</h4>
+                <address>
+                    2972 Westheimer Rd.<br>
+                    Santa Ana, Illinois 85486
+                </address>
+                <a href="mailto:Apnokhet@gmail.com">ApnoKhet@gmail.com</a><br>
+                <a href="tel:+917033808976">+91 7038308976</a>
+            </div>
+        </div>
+    </footer>
+    <script src="/scripts/testimonial.js"></script>
+    <script src="/scripts/shop_cart.js"></script>
 </body>
+
 </html>

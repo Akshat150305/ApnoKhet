@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="../styles/cart.css">
+</head>
+<body>
+    <header>
+        <nav class="navigationbar">
+            <div id="title">
+                <img src="../images/logo.webp" id="logo" alt="Apno Khet Logo" />
+            </div>
+            <div class="navigationtool">
+                <ul class="navigationbutton">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">About Us</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="cart-container">
+        <h1>Your Shopping Cart</h1>
+        <div class="cart-items">
+            </div>
+        <div class="cart-summary">
+            <div class="cart-total">
+                <p>Total: <span id="cart-total-price">₹0.00</span></p>
+            </div>
+            <button class="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </main>
+
+    <script src="/scripts/cart.js"></script>
+</body>
+</html>
