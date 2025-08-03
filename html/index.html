@@ -24,6 +24,11 @@
                     <li><a href="#">Shop</a></li>
                     <li><a href="#">Services</a></li>
                     <li><a href="#">About Us</a></li>
+                    <li id="login-nav-item"><a href="login.html">Login</a></li>
+                    
+                    <li id="profile-nav-item">
+                        <div class="user-avatar"></div> <button id="logout-button">Logout</button>
+                    </li>
                 </ul>
 
                 <form action="#" method="get" id="searchbar">
@@ -127,7 +132,7 @@
                  <h3>Plants kit</h3>
                 <div class="stars">★★★★★</div>
                 <p class="price">Rs. 599</p>
-                <button class="add-cart">Add to Cart</button>
+                <button class="add-cart" data-id="prod5" data-name="Plants kit" data-price="599" data-image="../images/indoorkit.jpg">Add to Cart</button>
             </div>
 
             <div class="product-card">
@@ -136,7 +141,7 @@
                  <h3>Butterfly</h3>
                 <div class="stars">★★★★★</div>
                 <p class="price">Rs. 625</p>
-                <button class="add-cart">Add to Cart</button>
+                <button class="add-cart" data-id="prod6" data-name="Butterfly" data-price="625" data-image="../images/butterfly.jpg">Add to Cart</button>
             </div>
 
             <div class="product-card">
@@ -145,7 +150,7 @@
                  <h3>Plants</h3>
                 <div class="stars">★★★★★</div>
                 <p class="price">Rs. 599</p>
-                <button class="add-cart">Add to Cart</button>
+                <button class="add-cart" data-id="prod7" data-name="Plants" data-price="599" data-image="../images/indoorkit.jpg">Add to Cart</button>
             </div>
 
             <div class="product-card">
@@ -154,7 +159,7 @@
                  <h3>Butterfly Pea</h3>
                 <div class="stars">★★★★★</div>
                 <p class="price">Rs. 625</p>
-                <button class="add-cart">Add to Cart</button>
+                <button class="add-cart" data-id="prod8" data-name="Butterfly Pea" data-price="625" data-image="../images/butterfly.jpg">Add to Cart</button>
             </div>
 
         </div>
@@ -402,8 +407,14 @@
             </div>
         </div>
     </footer>
+
+
+
+
+    <script src="/js/index_login.js"></script>
+    <script src="/js/index_cart.js"></script>
     <script src="/js/testimonial.js"></script>
-    <script src="/js/shop_cart.js"></script>
+    
 </body>
 
 </html>

@@ -1,0 +1,96 @@
+body {
+    font-family: 'Marcellus', serif;
+    background-color: #C3DCB7; /* Matching your site's background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    padding: 2rem;
+}
+
+.form-box {
+    background-color: #fff;
+    padding: 3rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-logo {
+    width: 100px;
+    margin-bottom: 1rem;
+}
+
+.form-box h2 {
+    margin-bottom: 0.5rem;
+    color: #1f4d36; /* Deep green from your brand */
+}
+
+.form-box p {
+    margin-bottom: 2rem;
+    color: #555;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    background-color: #465806; /* Brand green */
+    color: white;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #3b4d05;
+}
+
+.error-message {
+    color: #e74c3c;
+    margin-top: 1rem;
+    height: 1.2em; /* Reserve space to prevent layout shift */
+    font-size: 0.9em;
+}
+
+.toggle-form-text {
+    margin-top: 1.5rem;
+    font-size: 0.9em;
+}
+
+.toggle-form-text a {
+    color: #465806;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.toggle-form-text a:hover {
+    text-decoration: underline;
+}

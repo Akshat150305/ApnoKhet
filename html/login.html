@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Sign Up - Apno Khet</title>
+    <link rel="stylesheet" href="../styles/login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div id="login-box" class="form-box">
+            <img src="../images/logo.webp" alt="Apno Khet Logo" class="login-logo">
+            <h2>Welcome Back!</h2>
+            <p>Please log in to your account.</p>
+
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="login-identifier">Username or Email</label>
+                    <input type="text" id="login-identifier" required>
+                    </div>
+                <div class="input-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <div class="input-group">
+                    <label for="login-role">Login as:</label>
+                    <select id="login-role">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+                <p id="login-error-message" class="error-message"></p>
+            </form>
+            <p class="toggle-form-text">Don't have an account? <a href="#" id="show-signup">Sign Up</a></p>
+        </div>
+
+        <div id="signup-box" class="form-box" style="display: none;">
+            <img src="../images/logo.webp" alt="Apno Khet Logo" class="login-logo">
+            <h2>Create Account</h2>
+            <p>Join us and start your green journey!</p>
+
+            <form id="signup-form">
+                <div class="input-group">
+                    <label for="signup-username">Username</label>
+                    <input type="text" id="signup-username" required>
+                </div>
+                <div class="input-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required>
+                </div>
+                <div class="input-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required>
+                </div>
+                <button type="submit" class="login-btn">Sign Up</button>
+                <p id="signup-error-message" class="error-message"></p>
+            </form>
+            <p class="toggle-form-text">Already have an account? <a href="#" id="show-login">Log In</a></p>
+        </div>
+    </div>
+
+    <script src="../js/login.js"></script>
+</body>
+</html>

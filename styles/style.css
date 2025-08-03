@@ -47,6 +47,8 @@ header {
 
 .navigationbutton {
     display: flex;
+    flex-direction: row;
+    align-items: center;
     list-style: none;
 }
 
@@ -55,6 +57,7 @@ header {
 }
 
 .navigationbutton a {
+    
     color: black;
     font-weight: 500;
 }
@@ -806,3 +809,48 @@ header {
     font-weight: bold;
     display: none; /* Hidden by default, shown with JS */
 }
+
+
+
+
+
+/* ===== User Profile & Logout Styling in Navbar ===== */
+
+/* This will contain the profile icon and logout button */
+#profile-nav-item {
+    display: none; /* Hidden by default */
+    align-items: center;
+    gap: 0.8rem;
+}
+
+/* This is the new style for the letter avatar */
+.user-avatar {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: #C3DCB7; /* Dark green from your brand */
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+#logout-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    font-family: 'Marcellus', serif;
+    font-size: 0.8rem;
+    transition: background-color 0.3s ease;
+}
+
+#logout-button:hover {
+    background-color: #c0392b;
+}
+/* ===== User Profile & Logout Styling in Navbar ===== */
