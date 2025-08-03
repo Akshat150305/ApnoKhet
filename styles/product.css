@@ -1,0 +1,238 @@
+/* ===== Product Detail Page Styles ===== */
+
+#product-detail-container {
+    max-width: 1100px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.product-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: flex-start;
+}
+
+/* Image gallery section */
+.product-images {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.main-image-container {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #eee;
+}
+
+.main-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumbnail-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.thumbnail-item {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.thumbnail-item.active,
+.thumbnail-item:hover {
+    border-color: #465806;
+}
+
+.thumbnail-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* Product information section */
+.product-details h1 {
+    font-size: 2.5rem;
+    font-family: 'Marcellus', serif;
+    color: #1f4d36;
+    margin-bottom: 1rem;
+}
+
+.product-price {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #465806;
+    margin-bottom: 1.5rem;
+}
+
+.product-specs {
+    margin-top: 2rem;
+    border-top: 1px solid #eee;
+    padding-top: 1.5rem;
+}
+
+.product-specs h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.product-specs ul {
+    list-style: none;
+    padding: 0;
+}
+
+.product-specs li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.product-specs li strong {
+    color: #333;
+}
+
+/* Re-using your "Add to Cart" button style */
+.add-to-cart-btn {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 2rem;
+    font-size: 1.1rem;
+    background: #1f4d36;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-to-cart-btn:hover {
+    background: #27ae60;
+}
+
+.loading-message {
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 4rem;
+}
+
+/* ===== Review Section Styles ===== */
+#reviews-section {
+    max-width: 1100px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: #fcfdfc;
+    border-top: 1px solid #eee;
+}
+
+#reviews-section h2 {
+    font-size: 2rem;
+    color: #1f4d36;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Individual Review Styling */
+.review-item {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.review-item:last-child {
+    border-bottom: none;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.review-author {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.review-rating {
+    color: #f39c12; /* Star color */
+}
+
+.review-text {
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Review Form Styling */
+#review-form-container {
+    margin-top: 3rem;
+    padding: 2rem;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+#review-form-container h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.rating-group .stars {
+    display: inline-block;
+    direction: rtl; /* Make stars fill from right to left */
+}
+
+.rating-group .stars span {
+    font-size: 2rem;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.rating-group .stars:hover span,
+.rating-group .stars span.selected,
+.rating-group .stars span:hover ~ span,
+.rating-group .stars span.selected ~ span {
+    color: #f39c12;
+}
+
+#review-form-container textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.submit-review-btn {
+    margin-top: 1rem;
+    padding: 0.8rem 1.5rem;
+    background-color: #465806;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#login-for-review-message {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Apno Khet</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/shop.css">
+    <link rel="stylesheet" href="../styles/product.css">
+</head>
+<body>
+    <header>
+        <nav class="navigationbar">
+            </nav>
+    </header>
+
+    <main>
+        <div id="product-detail-container">
+            <p class="loading-message">Loading product details...</p>
+        </div>
+
+        <section id="reviews-section" style="display: none;">
+            <h2>Customer Reviews</h2>
+            <div id="reviews-list">
+                </div>
+
+            <div id="review-form-container">
+                <h3>Leave a Review</h3>
+                <form id="add-review-form">
+                    <div class="rating-group">
+                        <label>Your Rating:</label>
+                        <div class="stars">
+                            <span data-value="5">★</span><span data-value="4">★</span><span data-value="3">★</span><span data-value="2">★</span><span data-value="1">★</span>
+                        </div>
+                        <input type="hidden" id="rating-value" name="rating" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="review-text">Your Review:</label>
+                        <textarea id="review-text" rows="4" placeholder="Share your thoughts..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-review-btn">Submit Review</button>
+                    <p id="review-error-message" class="error-message"></p>
+                </form>
+            </div>
+            <p id="login-for-review-message" style="display: none;">
+                Please <a href="login.html">log in</a> to leave a review.
+            </p>
+        </section>
+        </main>
+
+    <footer class="site-footer">
+       </footer>
+
+    <script src="../js/product.js"></script>
+</body>
+</html>

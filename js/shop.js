@@ -19,30 +19,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Function to Render Products ---
     function renderProducts(productsToRender) {
-        shopGrid.innerHTML = ''; // Clear the grid first
+        shopGrid.innerHTML = ''; // Clear the grid
         productsToRender.forEach(product => {
             const productCard = document.createElement('div');
             productCard.className = 'product-card';
-            // This structure matches the design you wanted
+            // The card itself is now a link to the product page
             productCard.innerHTML = `
-                <div class="product-image-container">
-                    <img src="${product.image}" alt="${product.name}">
-                </div>
-                <div class="product-info">
-                    <div>
+                <a href="product.html?id=${product.id}" class="product-link">
+                    <div class="product-image-container">
+                        <img src="${product.image}" alt="${product.name}">
+                    </div>
+                    <div class="product-info">
                         <h3>${product.name}</h3>
                         <p class="price">Rs. ${product.price.toFixed(2)}</p>
                     </div>
+                </a>
+                <div class="product-action">
                     <button class="add-cart" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}">Add to Cart</button>
                 </div>
             `;
             shopGrid.appendChild(productCard);
         });
         
-        // Re-attach event listeners to the new "Add to Cart" buttons
         attachAddToCartListeners();
     }
-
     // --- Filtering and Sorting Logic ---
     function applyFiltersAndSorting() {
         let filteredProducts = [...allProducts];
