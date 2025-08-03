@@ -1,9 +1,15 @@
-/* Basic body styling */
-body {
-    font-family: 'Marcellus', serif;
-    background-color: #f9f9f9;
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+/* Basic body styling */
+body {
+    
+    min-width: 100vw;
+    font-family: 'Marcellus', serif;
+    background-color: #C3DCB7;
 }
 
 /* Header styling from your existing CSS */
@@ -19,7 +25,11 @@ body {
 }
 
 #logo {
-    height: 80%;
+    
+    position: relative;
+    top: 3rem;
+    width: 80%;
+    background-size: 100%;
 }
 
 .navigationtool ul {
