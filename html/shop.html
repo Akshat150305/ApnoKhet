@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop All Products - Apno Khet</title>
+    <link rel="stylesheet" href="../styles/style.css"> 
+    <link rel="stylesheet" href="../styles/shop.css">
+</head>
+<body>
+    <header>
+        <nav class="navigationbar">
+            <div id="title">
+                <img src="../images/logo.webp" id="logo" alt="Apno Khet Logo" />
+            </div>
+            <div class="navigationtool">
+                <ul class="navigationbutton">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li id="login-nav-item"><a href="login.html">Login</a></li>
+                    <li id="profile-nav-item">
+                        <div class="user-avatar"></div>
+                        <button id="logout-button">Logout</button>
+                    </li>
+                </ul>
+                <a href="cart.html" class="cart-icon">
+                    <img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart--v1.png" alt="Cart">
+                    <span class="cart-item-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="shop-container">
+        <div class="shop-header">
+            <h1>Our Full Collection</h1>
+            <p>Find the perfect green companion for your home, office, or garden from our wide range of plants and kits.</p>
+        </div>
+
+        <div class="shop-controls">
+            <div class="filters">
+                <label for="category-filter">Filter by Category:</label>
+                <select id="category-filter">
+                    <option value="all">All</option>
+                    <option value="indoor">Indoor Plants</option>
+                    <option value="flowering">Flowering Plants</option>
+                    <option value="kits">Gardening Kits</option>
+                </select>
+            </div>
+            <div class="sorting">
+                <label for="sort-by">Sort by:</label>
+                <select id="sort-by">
+                    <option value="default">Default</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                    <option value="name-asc">Name: A to Z</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="shop-grid">
+            </div>
+    </main>
+
+    <footer class="site-footer">
+       </footer>
+    
+    <script src="../js/shop.js"></script>
+</body>
+</html>
