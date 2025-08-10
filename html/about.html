@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Apno Khet</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/about.css">
+</head>
+<body>
+    <header>
+        <nav class="navigationbar">
+            <div id="title">
+                <img src="../images/logo.webp" id="logo" alt="Apno Khet Logo" />
+            </div>
+            <div class="navigationtool">
+                <ul class="navigationbutton">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li id="login-nav-item"><a href="login.html">Login</a></li>
+                    <li id="profile-nav-item">
+                        <div class="user-avatar"></div>
+                        <button id="logout-button">Logout</button>
+                    </li>
+                </ul>
+                <a href="cart.html" class="cart-icon">
+                    <img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart--v1.png" alt="Cart">
+                    <span class="cart-item-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="about-header">
+            <h1>Rooted in Nature, Growing with You</h1>
+            <p>Learn more about our passion for plants and our commitment to our customers.</p>
+        </section>
+
+        <section class="our-story-section">
+            <div class="story-content">
+                <div class="story-text">
+                    <h2>Our Story</h2>
+                    <p>Apno Khet is your trusted green partner — from delivering beautiful indoor and outdoor plants to offering expert care, on-site gardening, and monthly plant maintenance subscriptions for homes, offices, societies, and restaurants.</p>
+                    <p>Our mission is simple: to make plant care accessible for working professionals, businesses, and modern spaces through reliable, affordable, and aesthetic green solutions.</p>
+                    <p>We’re not just selling plants — we’re building a greener, smarter ecosystem for modern living.</p>
+                </div>
+                <div class="story-image">
+                    <img src="../images/aboutapnokhet.jpg" alt="Apno Khet branding">
+                </div>
+            </div>
+        </section>
+
+        <section class="our-values-section">
+            <h2>Our Core Values</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="Quality Icon">
+                        <path d="M12 2L2 8.5l10 13.5L22 8.5zM12 4.47L19.07 8.5 12 17.53 4.93 8.5z"/>
+                    </svg>
+                    <h3>Quality First</h3>
+                    <p>We source only the healthiest, most vibrant plants to ensure they thrive in their new homes.</p>
+                </div>
+                
+                <div class="value-card">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="Sustainability Icon">
+                        <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66C7.38 17.43 9.48 12 17 10v3l4-4-4-4zM7 3h10v2H7z"/>
+                    </svg>
+                    <h3>Sustainability</h3>
+                    <p>Our practices are eco-friendly, from sustainable sourcing to minimizing our environmental footprint.</p>
+                </div>
+
+                <div class="value-card">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="Trust Icon">
+                        <path d="M1 21h4V9H1zM23 10c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
+                    </svg>
+                    <h3>Customer Trust</h3>
+                    <p>We are your partners in planting, providing expert advice and support for your green journey.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+       </footer>
+    
+    <script>
+        // This script handles the dynamic elements in the navigation bar
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Cart Icon Logic ---
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartCountElement = document.querySelector('.cart-item-count');
+            if (cartCountElement) {
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                if (totalItems > 0) {
+                    cartCountElement.style.display = 'block';
+                    cartCountElement.textContent = totalItems;
+                } else {
+                    cartCountElement.style.display = 'none';
+                }
+            }
+
+            // --- Login Status Logic ---
+            const loginNavItem = document.getElementById('login-nav-item');
+            const profileNavItem = document.getElementById('profile-nav-item');
+            const logoutButton = document.getElementById('logout-button');
+            const userAvatar = document.querySelector('.user-avatar');
+            const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+
+            if (loggedInUser) {
+                if(loginNavItem) loginNavItem.style.display = 'none';
+                if(profileNavItem) profileNavItem.style.display = 'flex';
+                if(userAvatar) userAvatar.textContent = loggedInUser.username.charAt(0).toUpperCase();
+            } else {
+                if(loginNavItem) loginNavItem.style.display = 'block';
+                if(profileNavItem) profileNavItem.style.display = 'none';
+            }
+
+            if(logoutButton) {
+                logoutButton.addEventListener('click', () => {
+                    sessionStorage.removeItem('loggedInUser');
+                    alert('You have been logged out.');
+                    window.location.reload();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

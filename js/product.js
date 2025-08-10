@@ -3,16 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Product Data (with reviews and detailed specs) ---
     // In a real application, this data would come from a server.
     const allProducts = [
-        { id: 'prod1', name: 'Indoor Flower Kit', price: 350, image: '../images/ayuglow.jpg', category: 'kits' },
-        { id: 'prod2', name: 'Gifting Flower', price: 499, image: '../images/indoor.jpg', category: 'flowering' },
-        { id: 'prod3', name: 'Assorted Plants', price: 599, image: '../images/indoorkit.jpg', category: 'indoor' },
-        { id: 'prod4', name: 'Butterfly Pea', price: 625, image: '../images/butterfly.jpg', category: 'flowering' },
-        { id: 'prod5', name: 'Peace Lily', price: 450, image: '../images/flowering.jpg', category: 'flowering' },
-        { id: 'prod6', name: 'Laurentii Plant', price: 550, image: '../images/laurentii.jpg', category: 'indoor' },
-        { id: 'prod7', name: 'Herbal Pot', price: 399, image: '../images/herbal.jpg', category: 'indoor' },
-        { id: 'prod8', name: 'Fresh Tea Leaves', price: 250, image: '../images/sustainability.png', category: 'kits' }
+        { id: 'prod1', name: 'Indoor Flower Kit', price: 350, image: '../images/ayuglow.jpg', category: 'kits', images: ['../images/ayuglow.jpg', '../images/indoor.jpg', '../images/indoorkit.jpg', '../images/herbal.jpg'], specs: { height: '12-15 inches', light: 'Indirect Sunlight', watering: 'Weekly', soil: 'Well-draining' }, description: 'A curated kit with a selection of vibrant indoor flowers to brighten up any space. Perfect for beginners.', reviews: [{ author: 'Rina', rating: 5, text: 'Absolutely beautiful kit, my living room looks so fresh!' }] },
+        { id: 'prod2', name: 'Gifting Flower', price: 499, image: '../images/indoor.jpg', category: 'flowering', images: ['../images/indoor.jpg', '../images/flowering.jpg'], specs: { type: 'Seasonal Bloom', light: 'Bright, Indirect', watering: 'Bi-weekly' }, description: 'A beautiful flowering plant, elegantly wrapped and perfect for gifting on any occasion.', reviews: [{ author: 'Amit', rating: 4, text: 'Great for a gift. The packaging was very nice.' }] },
+        { id: 'prod3', name: 'Assorted Plants', price: 599, image: '../images/indoorkit.jpg', category: 'indoor', images: ['../images/indoorkit.jpg', '../images/laurentii.jpg'], specs: { variety: '3-in-1 pack', light: 'Low to Bright Light' }, description: 'A set of three popular and easy-to-care-for indoor plants. A great way to start your collection.', reviews: [] },
+        { id: 'prod4', name: 'Butterfly Pea', price: 625, image: '../images/butterfly.jpg', category: 'flowering', images: ['../images/butterfly.jpg'], specs: { use: 'Herbal Tea', watering: 'Regular' }, description: 'Vibrant blue flowers that can be used to make a stunning, all-natural herbal tea.', reviews: [] }
     ];
-
 
     // --- Get Elements from the DOM ---
     const productDetailContainer = document.getElementById('product-detail-container');
