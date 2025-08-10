@@ -1,5 +1,27 @@
+
 document.addEventListener('DOMContentLoaded', () => {
-    
+    //if adds services in future then uncomment this peace of code
+    // function renderServices() {
+    //     const servicesGrid = document.querySelector('.services-grid-home');
+    //     if (!servicesGrid) return;
+
+    //     const allServices = JSON.parse(localStorage.getItem('services')) || [];
+    //     const featuredServices = allServices.slice(0, 4); // Show up to 4 services
+
+    //     servicesGrid.innerHTML = '';
+    //     featuredServices.forEach(service => {
+    //         const serviceCard = document.createElement('div');
+    //         serviceCard.className = 'service-card-home'; // Use a unique class for home page
+    //         serviceCard.innerHTML = `
+    //             <h3>${service.title}</h3>
+    //             <p>${service.description}</p>
+    //             <a href="services.html" class="service-link">Learn More</a>
+    //         `;
+    //         servicesGrid.appendChild(serviceCard);
+    //     });
+    // }
+
+
     function renderBestSellers() {
         const productsGrid = document.querySelector('.products-grid');
         const allProducts = JSON.parse(localStorage.getItem('products')) || [];
@@ -15,16 +37,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         bestSellerProducts.forEach(product => {
-            // This code goes inside the render function of both index.js and shop.js
-
-            // ... inside the forEach loop ...
             const productCard = document.createElement('div');
             productCard.className = 'product-card';
-
             let priceHTML = `<div class="price-container"><p class="price">Rs. ${product.price.toFixed(2)}</p></div>`;
             let discountBadgeHTML = '';
+            let stockOverlayHTML = '';
+            const isOutOfStock = product.stockStatus === 'out_of_stock';
 
-            // Check if there is a valid original price for a discount
             if (product.originalPrice && product.originalPrice > product.price) {
                 const discountPercent = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
                 discountBadgeHTML = `<div class="discount-badge">${discountPercent}% OFF</div>`;
@@ -35,11 +54,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
             }
+            
+            if (isOutOfStock) {
+                stockOverlayHTML = `<div class="out-of-stock-overlay"><span class="out-of-stock-label">Out of Stock</span></div>`;
+            }
 
             productCard.innerHTML = `
                 ${discountBadgeHTML}
                 <a href="product.html?id=${product.id}" class="product-link">
+                    ${stockOverlayHTML}
                     <div class="product-image-container">
+                        
                         <img src="${product.image}" alt="${product.name}">
                     </div>
                     <div class="product-info">
@@ -48,12 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </a>
                 <div class="product-action">
-                    <button class="add-cart" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}">Add to Cart</button>
+                    <button class="add-cart" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}" ${isOutOfStock ? 'disabled' : ''}>
+                        ${isOutOfStock ? 'Out of Stock' : 'Add to Cart'}
+                    </button>
                 </div>
             `;
             productsGrid.appendChild(productCard);
-            // ...
-            
         });
         
         attachAddToCartListeners();
@@ -119,6 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+    
     
     renderBestSellers();
     updateCartIcon();

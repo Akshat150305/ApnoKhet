@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const description = product.description || 'A beautiful and healthy plant, perfect for your space.';
         const specs = product.specs || { note: 'No specifications provided.' };
         let priceHTML = `<p class="product-price">Rs. ${product.price.toFixed(2)}</p>`;
+        const isOutOfStock = product.stockStatus === 'out_of_stock';
+        let stockOverlayHTML = isOutOfStock ? `<div class="out-of-stock-overlay"><span class="out-of-stock-label">Out of Stock</span></div>` : '';
 
         if (product.originalPrice && product.originalPrice > product.price) {
             const discountPercent = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
@@ -37,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="product-layout">
                 <div class="product-images">
                     <div class="main-image-container">
+                        ${stockOverlayHTML}
                         <img src="${images[0]}" id="main-product-image" alt="${product.name}">
                     </div>
                     <div class="thumbnail-gallery">
@@ -55,7 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         <h3>Specifications</h3>
                         <ul>${Object.entries(specs).map(([key, value]) => `<li><strong>${key.charAt(0).toUpperCase() + key.slice(1)}:</strong> <span>${value}</span></li>`).join('')}</ul>
                     </div>
-                    <button class="add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
+                    <button class="add-to-cart-btn" data-id="${product.id}" ${isOutOfStock ? 'disabled' : ''}>
+                        ${isOutOfStock ? 'Out of Stock' : 'Add to Cart'}
+                    </button>
                 </div>
             </div>`;
         

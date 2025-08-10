@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop All Products - Apno Khet</title>
-    <link rel="stylesheet" href="../styles/shop.css">
-    <link rel="stylesheet" href="../styles/style.css"> 
-    
+    <title>Our Services - Apno Khet</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/services.css">
 </head>
 <body>
     <header>
         <nav class="navigationbar">
-            <div id="title" >
+            <div id="title">
                 <img src="../images/logo.webp" id="logo" alt="Apno Khet Logo" />
             </div>
             <div class="navigationtool">
@@ -19,7 +18,7 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="shop.html">Shop</a></li>
                     <li><a href="services.html">Services</a></li>
-                    <li><a href="/html/about.html">About Us</a></li>
+                    <li><a href="about.html">About Us</a></li>
                     <li id="login-nav-item"><a href="login.html">Login</a></li>
                     <li id="profile-nav-item">
                         <a href="profile.html" class="user-avatar-link">
@@ -35,35 +34,49 @@
         </nav>
     </header>
 
-    <main class="shop-container">
-        <div class="shop-header">
-            <h1>Our Full Collection</h1>
-            <p>Find the perfect green companion for your home, office, or garden from our wide range of plants and kits.</p>
+    <main class="services-container">
+        <div class="services-header">
+            <h1>Our Services</h1>
+            <p>From garden design to regular maintenance, we offer expert solutions to keep your space green and vibrant.</p>
         </div>
 
-        <div class="shop-controls">
-            <div class="filters">
-                <label for="category-filter">Filter by Category:</label>
-                <select id="category-filter">
-                    <option value="all">All</option>
-                    <option value="indoor">Indoor Plants</option>
-                    <option value="flowering">Flowering Plants</option>
-                    <option value="kits">Gardening Kits</option>
-                </select>
+        <div class="services-grid">
+            <div class="service-card">
+                <img src="/images/gardening.webp" alt="Gardening Services">
+                <div class="service-info">
+                    <h3>Gardening Services</h3>
+                    <p>Complete garden design, installation, and seasonal maintenance for homes and businesses.</p>
+                    <button class="service-btn">Check Availability</button>
+                </div>
             </div>
-            <div class="sorting">
-                <label for="sort-by">Sort by:</label>
-                <select id="sort-by">
-                    <option value="default">Default</option>
-                    <option value="price-asc">Price: Low to High</option>
-                    <option value="price-desc">Price: High to Low</option>
-                    <option value="name-asc">Name: A to Z</option>
-                </select>
+
+            <div class="service-card">
+                <img src="/images/plantcare.jpg" alt="Plant Care Services">
+                <div class="service-info">
+                    <h3>Plant Care Subscriptions</h3>
+                    <p>Regular plant care, including watering, pruning, and pest control on a monthly basis.</p>
+                    <button class="service-btn">Check Availability</button>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="/images/landscaping.webp" alt="Landscaping Services">
+                <div class="service-info">
+                    <h3>Landscaping Design</h3>
+                    <p>Breathe life into your terrace, lawn, or balcony with our expert green design services.</p>
+                    <button class="service-btn">Check Availability</button>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="/images/officebotanica.webp" alt="Office Botanica">
+                <div class="service-info">
+                    <h3>Office Botanica</h3>
+                    <p>Professional gardening and plant maintenance for indoor office spaces to create a lush environment.</p>
+                    <button class="service-btn">Check Availability</button>
+                </div>
             </div>
         </div>
-
-        <div class="shop-grid">
-            </div>
     </main>
 
     <footer class="site-footer">
@@ -125,7 +138,7 @@
             </div>
         </div>
     </footer>
-    
-    <script src="../js/shop.js"></script>
+
+    <script src="../js/services.js"></script>
 </body>
 </html>

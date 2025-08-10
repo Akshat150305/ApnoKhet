@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
             productCard.className = 'product-card';
             let priceHTML = `<div class="price-container"><p class="price">Rs. ${product.price.toFixed(2)}</p></div>`;
             let discountBadgeHTML = '';
+            let stockOverlayHTML = '';
+            const isOutOfStock = product.stockStatus === 'out_of_stock';
 
             if (product.originalPrice && product.originalPrice > product.price) {
                 const discountPercent = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
@@ -24,10 +26,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             }
 
+            if (isOutOfStock) {
+                stockOverlayHTML = `<div class="out-of-stock-overlay"><span class="out-of-stock-label">Out of Stock</span></div>`;
+            }
+
             productCard.innerHTML = `
                 ${discountBadgeHTML}
                 <a href="product.html?id=${product.id}" class="product-link">
+                    ${stockOverlayHTML}
                     <div class="product-image-container">
+                        
                         <img src="${product.image}" alt="${product.name}">
                     </div>
                     <div class="product-info">
@@ -36,7 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </a>
                 <div class="product-action">
-                    <button class="add-cart" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}">Add to Cart</button>
+                    <button class="add-cart" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}" ${isOutOfStock ? 'disabled' : ''}>
+                        ${isOutOfStock ? 'Out of Stock' : 'Add to Cart'}
+                    </button>
                 </div>
             `;
             shopGrid.appendChild(productCard);

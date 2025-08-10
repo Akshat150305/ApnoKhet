@@ -17,12 +17,13 @@
                 <ul class="navigationbutton">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="shop.html">Shop</a></li>
-                    <li><a href="#">Services</a></li>
+                    <li><a href="services.html">Services</a></li>
                     <li><a href="about.html">About Us</a></li>
                     <li id="login-nav-item"><a href="login.html">Login</a></li>
                     <li id="profile-nav-item">
-                        <div class="user-avatar"></div>
-                        <button id="logout-button">Logout</button>
+                        <a href="profile.html" class="user-avatar-link">
+                            <div class="user-avatar"></div>
+                        </a>
                     </li>
                 </ul>
                 <a href="cart.html" class="cart-icon">
@@ -84,7 +85,64 @@
     </main>
 
     <footer class="site-footer">
-       </footer>
+        <div class="footer-content">
+            <!-- Left: Logo & Social -->
+            <div class="footer-brand">
+                <img src="../images/logo.webp" alt="Apno Khet Logo">
+                <div class="social-icons">
+                    <a href="#"><img src="../images/facebook.png" alt="Facebook"></a>
+                    <a href="#"><img src="../images/instagram.png" alt="Instagram"></a>
+                    <a href="#"><img src="../images/x.png" alt="Twitter/X"></a>
+                </div>
+            </div>
+
+            <!-- Middle: Links -->
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="#">Company</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Quality</a></li>
+                        <li><a href="#">Gifting</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="#">Indoor Plants</a></li>
+                        <li><a href="#">Flowering Plants</a></li>
+                        <li><a href="#">Packaged Seeds</a></li>
+                        <li><a href="#">Gardening Tools</a></li>
+                        <li><a href="#">Herbal Plants</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Help Center</h4>
+                    <ul>
+                        <li><a href="#">Delivery Information</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Returns & Refunds</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li> 
+                        <li><a href="#">Shopping</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right: Get in touch -->
+            <div class="footer-contact">
+                <h4>Get in touch</h4>
+                <address>
+                    <a href="https://maps.app.goo.gl/Az5ZdARinUnmQpGQ6?g_st=com.google.maps.preview.copy">URBANA JEWELS JAIPUR, SOCIETY,<br> Jaipur, Keshyawala, Rajasthan 302029</a>
+                </address>
+                <a href="mailto:Apnokhet@gmail.com">ApnoKhet@gmail.com</a><br>
+                <a href="tel:+917033808976">+91 7038308976</a>
+            </div>
+        </div>
+    </footer>
     
     <script>
         // This script handles the dynamic elements in the navigation bar

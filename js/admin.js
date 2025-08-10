@@ -2,18 +2,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- DATA MANAGEMENT ---
     let allProducts = JSON.parse(localStorage.getItem('products')) || [];
+    let allServices = JSON.parse(localStorage.getItem('services')) || [];
 
-    function saveProducts() {
-        localStorage.setItem('products', JSON.stringify(allProducts));
-    }
+    function saveProducts() { localStorage.setItem('products', JSON.stringify(allProducts)); }
+    function saveServices() { localStorage.setItem('services', JSON.stringify(allServices)); }
 
     // --- DOM ELEMENTS ---
     const sections = document.querySelectorAll('.admin-section');
     const navLinks = document.querySelectorAll('.admin-nav li[data-target]');
     const productsTableBody = document.getElementById('products-table-body');
     const usersTableBody = document.getElementById('users-table-body');
+    const servicesTableBody = document.getElementById('services-table-body');
     const productForm = document.getElementById('product-form');
+    const serviceForm = document.getElementById('service-form');
     const productFormTitle = document.getElementById('product-form-title');
+    const serviceFormTitle = document.getElementById('service-form-title');
     const bestsellerForm = document.getElementById('bestseller-form');
     const bestsellerListContainer = document.getElementById('bestseller-list-container');
 
@@ -29,16 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Helper function to switch back to the main product view ---
-    function showProductsView() {
-        const productsSection = document.getElementById('products-section');
-        const productsNavLink = document.querySelector('.admin-nav li[data-target="products-section"]');
-        
-        sections.forEach(sec => sec.style.display = 'none');
-        if (productsSection) productsSection.style.display = 'block';
-
-        navLinks.forEach(nav => nav.classList.remove('active'));
-        if (productsNavLink) productsNavLink.classList.add('active');
+    function showView(sectionId) {
+        document.querySelector(`.admin-nav li[data-target="${sectionId}"]`).click();
     }
 
     // --- PRODUCT MANAGEMENT (CRUD) ---
@@ -46,12 +41,16 @@ document.addEventListener('DOMContentLoaded', () => {
         productsTableBody.innerHTML = '';
         allProducts.forEach(product => {
             const row = document.createElement('tr');
+            const isInStock = product.stockStatus !== 'out_of_stock';
+            const statusClass = isInStock ? 'status-in-stock' : 'status-out-of-stock';
+            const statusText = isInStock ? 'In Stock' : 'Out of Stock';
             row.innerHTML = `
                 <td>${product.id}</td>
                 <td><img src="${product.image}" alt="${product.name}" width="50" height="50" style="object-fit: cover;"></td>
                 <td>${product.name}</td>
                 <td>Rs. ${product.price.toFixed(2)}</td>
                 <td>${product.category}</td>
+                <td><span class="${statusClass}">${statusText}</span></td>
                 <td class="table-actions">
                     <button class="edit-btn" data-id="${product.id}">Edit</button>
                     <button class="delete-btn" data-id="${product.id}">Delete</button>
@@ -90,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         productForm.elements.price.value = product.price || '';
         productForm.elements.originalPrice.value = product.originalPrice || '';
         productForm.elements.category.value = product.category || 'indoor';
+        productForm.elements.stockStatus.value = product.stockStatus || 'in_stock';
         productForm.elements.image.value = product.image || '';
         productForm.elements.description.value = product.description || '';
         productForm.elements.images.value = product.images ? product.images.join(', ') : '';
@@ -119,16 +119,11 @@ document.addEventListener('DOMContentLoaded', () => {
         saveProducts();
         renderProducts();
         renderBestSellersManagement();
-        showProductsView();
+        showView('products-section');
     });
     
-    document.getElementById('cancel-form').addEventListener('click', () => {
-        showProductsView();
-    });
-    
-    document.getElementById('add-new-product').addEventListener('click', () => {
-        showProductForm('Add New Product');
-    });
+    document.getElementById('cancel-form').addEventListener('click', () => showView('products-section'));
+    document.getElementById('add-new-product').addEventListener('click', () => showProductForm('Add New Product'));
 
     // --- BEST SELLER MANAGEMENT ---
     function renderBestSellersManagement() {
@@ -142,10 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
             item.innerHTML = `
                 <input type="checkbox" id="bestseller-${product.id}" value="${product.id}" ${isChecked ? 'checked' : ''}>
                 <img src="${product.image}" alt="${product.name}">
-                <label for="bestseller-${product.id}" class="bestseller-info">
-                    <strong>${product.name}</strong>
-                    <span>ID: ${product.id}</span>
-                </label>
+                <label for="bestseller-${product.id}" class="bestseller-info"><strong>${product.name}</strong><span>ID: ${product.id}</span></label>
             `;
             bestsellerListContainer.appendChild(item);
         });
@@ -158,6 +150,75 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('bestSellerIds', JSON.stringify(selectedIds));
         alert('Best sellers have been updated successfully!');
     });
+
+    // --- SERVICE MANAGEMENT (CRUD) ---
+    function renderServices() {
+        servicesTableBody.innerHTML = '';
+        allServices.forEach(service => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${service.id}</td>
+                <td><img src="${service.image}" alt="${service.title}" class="service-image"></td>
+                <td>${service.title}</td>
+                <td>${service.description}</td>
+                <td class="table-actions">
+                    <button class="edit-service-btn" data-id="${service.id}">Edit</button>
+                    <button class="delete-service-btn" data-id="${service.id}">Delete</button>
+                </td>
+            `;
+            servicesTableBody.appendChild(row);
+        });
+        attachServiceActionListeners();
+    }
+
+    function attachServiceActionListeners() {
+        document.querySelectorAll('.edit-service-btn').forEach(btn => btn.addEventListener('click', handleEditService));
+        document.querySelectorAll('.delete-service-btn').forEach(btn => btn.addEventListener('click', handleDeleteService));
+    }
+
+    function handleEditService(e) {
+        const serviceId = e.target.getAttribute('data-id');
+        const service = allServices.find(s => s.id === serviceId);
+        showServiceForm('Edit Service', service);
+    }
+
+    function handleDeleteService(e) {
+        const serviceId = e.target.getAttribute('data-id');
+        if (confirm(`Are you sure you want to delete service ${serviceId}?`)) {
+            allServices = allServices.filter(s => s.id !== serviceId);
+            saveServices();
+            renderServices();
+        }
+    }
+    
+    function showServiceForm(title, service = {}) {
+        serviceFormTitle.textContent = title;
+        serviceForm.elements.id.value = service.id || '';
+        serviceForm.elements.title.value = service.title || '';
+        serviceForm.elements.image.value = service.image || '';
+        serviceForm.elements.description.value = service.description || '';
+        serviceForm.elements.id.readOnly = !!service.id;
+        sections.forEach(sec => sec.style.display = 'none');
+        document.getElementById('service-form-section').style.display = 'block';
+    }
+
+    serviceForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(serviceForm);
+        const serviceData = Object.fromEntries(formData.entries());
+        if (serviceForm.elements.id.readOnly) {
+            allServices = allServices.map(s => s.id === serviceData.id ? serviceData : s);
+        } else {
+            serviceData.id = 'serv' + Date.now();
+            allServices.push(serviceData);
+        }
+        saveServices();
+        renderServices();
+        showView('services-section');
+    });
+
+    document.getElementById('cancel-service-form').addEventListener('click', () => showView('services-section'));
+    document.getElementById('add-new-service').addEventListener('click', () => showServiceForm('Add New Service'));
 
     // --- USER MANAGEMENT ---
     function renderUsers() {
@@ -172,10 +233,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- INITIALIZATION ---
     function init() {
-        document.querySelector('.admin-nav li[data-target="products-section"]').click();
+        showView('products-section');
         renderProducts();
-        renderUsers();
         renderBestSellersManagement();
+        renderServices();
+        renderUsers();
     }
 
     init();

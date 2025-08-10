@@ -14,6 +14,7 @@
                 <ul>
                     <li data-target="products-section">Manage Products</li>
                     <li data-target="bestsellers-section">Manage Best Sellers</li>
+                    <li data-target="services-section">Manage Services</li>
                     <li data-target="users-section">View Users</li>
                 </ul>
             </nav>
@@ -32,6 +33,7 @@
                             <th>Name</th>
                             <th>Price</th>
                             <th>Category</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -52,33 +54,42 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="price">Discounted Price</label>
+                            <label for="price">Discounted Price (Current Price)</label>
                             <input type="number" name="price" step="0.01" required>
                         </div>
                         <div class="form-group">
                             <label for="originalPrice">Original Price (Optional)</label>
-                            <input type="number" name="originalPrice" step="0.01">
+                            <input type="number" name="originalPrice" step="0.01" placeholder="e.g., 599">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select name="category">
+                                <option value="indoor">Indoor</option>
+                                <option value="flowering">Flowering</option>
+                                <option value="kits">Kits</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="stockStatus">Stock Status</label>
+                            <select name="stockStatus">
+                                <option value="in_stock">In Stock</option>
+                                <option value="out_of_stock">Out of Stock</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="category">Category</label>
-                        <select name="category">
-                            <option value="indoor">Indoor</option>
-                            <option value="flowering">Flowering</option>
-                            <option value="kits">Kits</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="image">Main Image Path</label>
+                        <label for="image">Main Image Path (e.g., ../images/ayuglow.jpg)</label>
                         <input type="text" name="image" required>
                     </div>
                     <div class="form-group">
                         <label for="images">Additional Image Paths (comma-separated)</label>
-                        <input type="text" name="images">
+                        <input type="text" name="images" placeholder="../images/img1.jpg, ../images/img2.jpg">
                     </div>
                     <div class="form-group">
                         <label for="description">Product Description</label>
-                        <textarea name="description" rows="4"></textarea>
+                        <textarea name="description" rows="4" placeholder="Enter a detailed description..."></textarea>
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="save-btn">Save Product</button>
@@ -89,11 +100,55 @@
 
             <section id="bestsellers-section" class="admin-section">
                 <h1>Manage Best Sellers</h1>
-                <p>Select products to feature on the home page.</p>
+                <p>Select the products you want to feature on the home page as best sellers.</p>
                 <form id="bestseller-form">
-                    <div id="bestseller-list-container" class="bestseller-list"></div>
+                    <div id="bestseller-list-container" class="bestseller-list">
+                        </div>
                     <div class="form-actions" style="margin-top: 2rem;">
                         <button type="submit" class="save-btn">Save Best Sellers</button>
+                    </div>
+                </form>
+            </section>
+
+            <section id="services-section" class="admin-section">
+                <h1>Services</h1>
+                <button id="add-new-service" class="save-btn" style="margin-bottom: 1rem;">Add New Service</button>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="services-table-body"></tbody>
+                </table>
+            </section>
+
+            <section id="service-form-section" class="admin-section">
+                <h1 id="service-form-title">Add/Edit Service</h1>
+                <form id="service-form" class="admin-form">
+                    <div class="form-group">
+                        <label for="serviceId">Service ID</label>
+                        <input type="text" name="id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="serviceTitle">Service Title</label>
+                        <input type="text" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="serviceImage">Image Path (e.g., ../images/service1.jpg)</label>
+                        <input type="text" name="image" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="serviceDescription">Description</label>
+                        <textarea name="description" rows="3" required></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="save-btn">Save Service</button>
+                        <button type="button" id="cancel-service-form" class="cancel-btn">Cancel</button>
                     </div>
                 </form>
             </section>
