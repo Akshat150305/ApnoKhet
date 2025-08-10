@@ -1,13 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
+    
+    function renderBestSellers() {
+        const productsGrid = document.querySelector('.products-grid');
+        const allProducts = JSON.parse(localStorage.getItem('products')) || [];
+        const bestSellerIds = JSON.parse(localStorage.getItem('bestSellerIds')) || [];
+        const bestSellerProducts = allProducts.filter(product => bestSellerIds.includes(product.id));
 
-    const allProducts = JSON.parse(localStorage.getItem('products')) || [];
-    const shopGrid = document.querySelector('.shop-grid');
-    const categoryFilter = document.getElementById('category-filter');
-    const sortBy = document.getElementById('sort-by');
+        if (!productsGrid) return;
+        productsGrid.innerHTML = '';
 
-    function renderProducts(productsToRender) {
-        shopGrid.innerHTML = '';
-        productsToRender.forEach(product => {
+        if (bestSellerProducts.length === 0) {
+            productsGrid.innerHTML = '<p style="text-align: center; width: 100%;">No best sellers have been selected yet. Please check back later!</p>';
+            return;
+        }
+
+        bestSellerProducts.forEach(product => {
             const productCard = document.createElement('div');
             productCard.className = 'product-card';
             let priceHTML = `<div class="price-container"><p class="price">Rs. ${product.price.toFixed(2)}</p></div>`;
@@ -39,28 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     <button class="add-cart" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}">Add to Cart</button>
                 </div>
             `;
-            shopGrid.appendChild(productCard);
+            productsGrid.appendChild(productCard);
         });
+        
         attachAddToCartListeners();
     }
-
-    function applyFiltersAndSorting() {
-        let filteredProducts = [...allProducts];
-        const selectedCategory = categoryFilter.value;
-        if (selectedCategory !== 'all') {
-            filteredProducts = filteredProducts.filter(p => p.category === selectedCategory);
-        }
-        const sortValue = sortBy.value;
-        switch (sortValue) {
-            case 'price-asc': filteredProducts.sort((a, b) => a.price - b.price); break;
-            case 'price-desc': filteredProducts.sort((a, b) => b.price - a.price); break;
-            case 'name-asc': filteredProducts.sort((a, b) => a.name.localeCompare(b.name)); break;
-        }
-        renderProducts(filteredProducts);
-    }
-    
-    if (categoryFilter) categoryFilter.addEventListener('change', applyFiltersAndSorting);
-    if (sortBy) sortBy.addEventListener('change', applyFiltersAndSorting);
 
     function attachAddToCartListeners() {
         document.querySelectorAll('.add-cart').forEach(button => {
@@ -106,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const logoutButton = document.getElementById('logout-button');
         const userAvatar = document.querySelector('.user-avatar');
         const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+
         if (loggedInUser) {
             if(loginNavItem) loginNavItem.style.display = 'none';
             if(profileNavItem) profileNavItem.style.display = 'flex';
@@ -122,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    applyFiltersAndSorting();
+    renderBestSellers();
     updateCartIcon();
     checkLoginStatus();
 });

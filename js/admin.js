@@ -1,13 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- DATA MANAGEMENT ---
-    // In a real app, this would be on a server. For now, localStorage is our database.
-    let allProducts = JSON.parse(localStorage.getItem('products')) || [
-        { id: 'prod1', name: 'Indoor Flower Kit', price: 350, image: '../images/ayuglow.jpg', category: 'kits' },
-        { id: 'prod2', name: 'Gifting Flower', price: 499, image: '../images/indoor.jpg', category: 'flowering' },
-        { id: 'prod3', name: 'Assorted Plants', price: 599, image: '../images/indoorkit.jpg', category: 'indoor' },
-        { id: 'prod4', name: 'Butterfly Pea', price: 625, image: '../images/butterfly.jpg', category: 'flowering' }
-    ];
+    let allProducts = JSON.parse(localStorage.getItem('products')) || [];
 
     function saveProducts() {
         localStorage.setItem('products', JSON.stringify(allProducts));
@@ -15,20 +9,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- DOM ELEMENTS ---
     const sections = document.querySelectorAll('.admin-section');
-    const navLinks = document.querySelectorAll('.admin-nav li');
+    const navLinks = document.querySelectorAll('.admin-nav li[data-target]');
     const productsTableBody = document.getElementById('products-table-body');
     const usersTableBody = document.getElementById('users-table-body');
     const productForm = document.getElementById('product-form');
     const productFormTitle = document.getElementById('product-form-title');
+    const bestsellerForm = document.getElementById('bestseller-form');
+    const bestsellerListContainer = document.getElementById('bestseller-list-container');
 
     // --- NAVIGATION ---
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
-            // Manage active states for nav links
             navLinks.forEach(nav => nav.classList.remove('active'));
             link.classList.add('active');
-            
-            // Show the correct section
             const targetSection = link.getAttribute('data-target');
             sections.forEach(sec => {
                 sec.style.display = sec.id === targetSection ? 'block' : 'none';
@@ -36,16 +29,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- PRODUCT MANAGEMENT ---
+    // --- Helper function to switch back to the main product view ---
+    function showProductsView() {
+        const productsSection = document.getElementById('products-section');
+        const productsNavLink = document.querySelector('.admin-nav li[data-target="products-section"]');
+        
+        sections.forEach(sec => sec.style.display = 'none');
+        if (productsSection) productsSection.style.display = 'block';
+
+        navLinks.forEach(nav => nav.classList.remove('active'));
+        if (productsNavLink) productsNavLink.classList.add('active');
+    }
+
+    // --- PRODUCT MANAGEMENT (CRUD) ---
     function renderProducts() {
         productsTableBody.innerHTML = '';
         allProducts.forEach(product => {
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${product.id}</td>
-                <td><img src="${product.image}" alt="${product.name}" width="50"></td>
+                <td><img src="${product.image}" alt="${product.name}" width="50" height="50" style="object-fit: cover;"></td>
                 <td>${product.name}</td>
-                <td>${product.price}</td>
+                <td>Rs. ${product.price.toFixed(2)}</td>
                 <td>${product.category}</td>
                 <td class="table-actions">
                     <button class="edit-btn" data-id="${product.id}">Edit</button>
@@ -74,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
             allProducts = allProducts.filter(p => p.id !== productId);
             saveProducts();
             renderProducts();
+            renderBestSellersManagement();
         }
     }
 
@@ -82,42 +88,75 @@ document.addEventListener('DOMContentLoaded', () => {
         productForm.elements.id.value = product.id || '';
         productForm.elements.name.value = product.name || '';
         productForm.elements.price.value = product.price || '';
+        productForm.elements.originalPrice.value = product.originalPrice || '';
         productForm.elements.category.value = product.category || 'indoor';
         productForm.elements.image.value = product.image || '';
-
-        // Make ID field readonly when editing
+        productForm.elements.description.value = product.description || '';
+        productForm.elements.images.value = product.images ? product.images.join(', ') : '';
         productForm.elements.id.readOnly = !!product.id;
-
-        document.getElementById('products-section').style.display = 'none';
+        navLinks.forEach(nav => nav.classList.remove('active'));
+        sections.forEach(sec => sec.style.display = 'none');
         document.getElementById('product-form-section').style.display = 'block';
     }
 
     productForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const formData = new FormData(productForm);
-        const product = Object.fromEntries(formData.entries());
-        product.price = parseFloat(product.price); // Ensure price is a number
+        const productData = Object.fromEntries(formData.entries());
+        productData.price = parseFloat(productData.price);
+        productData.originalPrice = productData.originalPrice ? parseFloat(productData.originalPrice) : null;
+        const additionalImages = productData.images.split(',').map(img => img.trim()).filter(img => img);
+        productData.images = [productData.image, ...additionalImages];
+        productData.images = [...new Set(productData.images)];
 
-        if (productForm.elements.id.readOnly) { // Editing existing product
-            allProducts = allProducts.map(p => p.id === product.id ? product : p);
-        } else { // Adding new product
-            product.id = 'prod' + Date.now(); // Generate a unique ID
-            allProducts.push(product);
+        if (productForm.elements.id.readOnly) {
+            allProducts = allProducts.map(p => p.id === productData.id ? productData : p);
+        } else {
+            productData.id = 'prod' + Date.now();
+            allProducts.push(productData);
         }
         
         saveProducts();
         renderProducts();
-        document.getElementById('product-form-section').style.display = 'none';
-        document.getElementById('products-section').style.display = 'block';
+        renderBestSellersManagement();
+        showProductsView();
     });
     
     document.getElementById('cancel-form').addEventListener('click', () => {
-        document.getElementById('product-form-section').style.display = 'none';
-        document.getElementById('products-section').style.display = 'block';
+        showProductsView();
     });
     
     document.getElementById('add-new-product').addEventListener('click', () => {
         showProductForm('Add New Product');
+    });
+
+    // --- BEST SELLER MANAGEMENT ---
+    function renderBestSellersManagement() {
+        bestsellerListContainer.innerHTML = '';
+        const currentProducts = JSON.parse(localStorage.getItem('products')) || [];
+        const bestSellerIds = JSON.parse(localStorage.getItem('bestSellerIds')) || [];
+        currentProducts.forEach(product => {
+            const isChecked = bestSellerIds.includes(product.id);
+            const item = document.createElement('div');
+            item.className = 'bestseller-item';
+            item.innerHTML = `
+                <input type="checkbox" id="bestseller-${product.id}" value="${product.id}" ${isChecked ? 'checked' : ''}>
+                <img src="${product.image}" alt="${product.name}">
+                <label for="bestseller-${product.id}" class="bestseller-info">
+                    <strong>${product.name}</strong>
+                    <span>ID: ${product.id}</span>
+                </label>
+            `;
+            bestsellerListContainer.appendChild(item);
+        });
+    }
+
+    bestsellerForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const selectedCheckboxes = bestsellerForm.querySelectorAll('input[type="checkbox"]:checked');
+        const selectedIds = Array.from(selectedCheckboxes).map(cb => cb.value);
+        localStorage.setItem('bestSellerIds', JSON.stringify(selectedIds));
+        alert('Best sellers have been updated successfully!');
     });
 
     // --- USER MANAGEMENT ---
@@ -126,20 +165,17 @@ document.addEventListener('DOMContentLoaded', () => {
         usersTableBody.innerHTML = '';
         allUsers.forEach(user => {
             const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${user.username}</td>
-                <td>${user.email}</td>
-            `;
+            row.innerHTML = `<td>${user.username}</td><td>${user.email}</td>`;
             usersTableBody.appendChild(row);
         });
     }
 
     // --- INITIALIZATION ---
     function init() {
-        // Set default view to Products
         document.querySelector('.admin-nav li[data-target="products-section"]').click();
         renderProducts();
         renderUsers();
+        renderBestSellersManagement();
     }
 
     init();
