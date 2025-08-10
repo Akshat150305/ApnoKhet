@@ -15,11 +15,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         bestSellerProducts.forEach(product => {
+            // This code goes inside the render function of both index.js and shop.js
+
+            // ... inside the forEach loop ...
             const productCard = document.createElement('div');
             productCard.className = 'product-card';
+
             let priceHTML = `<div class="price-container"><p class="price">Rs. ${product.price.toFixed(2)}</p></div>`;
             let discountBadgeHTML = '';
 
+            // Check if there is a valid original price for a discount
             if (product.originalPrice && product.originalPrice > product.price) {
                 const discountPercent = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
                 discountBadgeHTML = `<div class="discount-badge">${discountPercent}% OFF</div>`;
@@ -47,6 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
             productsGrid.appendChild(productCard);
+            // ...
+            
         });
         
         attachAddToCartListeners();
