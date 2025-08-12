@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart</title>
     <link rel="stylesheet" href="../styles/cart.css">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
     <header>
@@ -31,7 +32,7 @@
             <div class="cart-total">
                 <p>Total: <span id="cart-total-price">₹0.00</span></p>
             </div>
-            <button class="checkout-btn">Proceed to Checkout</button>
+            <button id="checkout-btn" class="checkout-btn">Proceed to Checkout</button>
         </div>
     </main>
 

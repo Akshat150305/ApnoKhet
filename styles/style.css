@@ -122,7 +122,6 @@ header {
     align-items: center;
     justify-content: space-around;
     gap: 4rem;
-    
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -383,7 +382,6 @@ header {
 
 .why-card p {
   font-family: system-ui, sans-serif;
-  font-style: oblique;
   font-size: 0.9rem;
   line-height: 1.5;
   color: #333;
