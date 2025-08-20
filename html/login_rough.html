@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login / Sign up – Toggle Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg-1:#0e1a12;
+      --card:#0b0f0d;
+      --accent:#8fd16e;
+      --accent-2:#6abf58;
+      --muted:#93a29a;
+      --white:#f7fbf8;
+      --shadow:0 10px 30px rgba(0,0,0,.45);
+      --radius:18px;
+      --dur:450ms;
+      --ease:cubic-bezier(.2,.8,.2,1);
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:Inter, sans-serif; background:var(--bg-1); color:var(--white); display:flex; justify-content:center; align-items:center; height:100vh;}
+    .card{width:900px; background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); display:grid; grid-template-columns:1fr 1fr; overflow:hidden;}
+    .panel{padding:40px; display:flex; flex-direction:column; justify-content:center; transition:background var(--dur) var(--ease), opacity var(--dur) var(--ease);}
+    .panel.inactive{background-image: url(/images/background_byMayank1.jpg); opacity:0.2; pointer-events:none;}
+    .panel.active{background:rgba(0,0,0,.85); opacity:1; pointer-events:auto;}
+    .title{font-family:"Playfair Display",serif; font-size:32px; margin-bottom:12px;}
+    .subtitle{color:var(--muted); font-size:14px; margin-bottom:20px;}
+    .fields{display:grid; gap:16px;}
+    .field{display:flex; flex-direction:column;}
+    .label{font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+    .input{background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,.3); padding:8px 4px; color:var(--white);}
+    .input:focus{outline:none; border-color:var(--accent)}
+    .btn{margin-top:20px; padding:12px; border:none; border-radius:999px; font-weight:700; cursor:pointer; background:linear-gradient(180deg, var(--accent), var(--accent-2)); color:#061307;}
+    .switcher{position:absolute;
+         /* top:20px; right:20px; */
+        right: 45.5%;
+        padding-top: 1rem;
+          display:flex; gap:12px;}
+    .switcher button{background:none; border:none; color:var(--muted); font-weight:600; cursor:pointer; font-size:14px; transition:color .3s;}
+    .switcher button.active{color:var(--accent)}
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    
+    <!-- Switcher buttons -->
+  <div class="switcher">
+    <button id="loginBtn" class="active">Login</button>
+    <button id="signupBtn">Sign Up</button>
+  </div>
+    <!-- Login Panel -->
+    <div class="panel active" id="loginPanel">
+      <h1 class="title">Login</h1>
+      <p class="subtitle">Enter your credentials to continue.</p>
+      <form class="fields">
+        <label class="field">
+          <span class="label">Email</span>
+          <input type="email" class="input" placeholder="your@email.com" required>
+        </label>
+        <label class="field">
+          <span class="label">Password</span>
+          <input type="password" class="input" placeholder="••••••••" required>
+        </label>
+        <button class="btn" type="submit">Login</button>
+      </form>
+    </div>
+
+    <!-- Sign-up Panel -->
+    <div class="panel inactive" id="signupPanel">
+      <h1 class="title">Sign Up</h1>
+      <p class="subtitle">Create an account to get started.</p>
+      <form class="fields" id="signupForm">
+        <label class="field">
+          <span class="label">Full name</span>
+          <input type="text" class="input" name="name" placeholder="Akshat Kumar" required>
+        </label>
+        <label class="field">
+          <span class="label">Email</span>
+          <input type="email" class="input" name="email" placeholder="you@domain.com" required>
+        </label>
+        <label class="field">
+          <span class="label">Phone Number</span>
+          <input type="tel" class="input" name="phone" placeholder="9876543210" required>
+        </label>
+        <label class="field">
+          <span class="label">Password</span>
+          <input type="password" class="input" name="password" placeholder="Create a password" required>
+        </label>
+        <button class="btn" type="submit">Sign Up</button>
+      </form>
+    </div>
+  </div>
+
+  
+
+  <script>
+    const loginBtn = document.getElementById('loginBtn');
+    const signupBtn = document.getElementById('signupBtn');
+    const loginPanel = document.getElementById('loginPanel');
+    const signupPanel = document.getElementById('signupPanel');
+    const signupForm = document.getElementById('signupForm');
+
+    function setActive(panel){
+      if(panel === 'login'){
+        loginPanel.classList.add('active');
+        loginPanel.classList.remove('inactive');
+        signupPanel.classList.add('inactive');
+        signupPanel.classList.remove('active');
+        loginBtn.classList.add('active');
+        signupBtn.classList.remove('active');
+      } else {
+        signupPanel.classList.add('active');
+        signupPanel.classList.remove('inactive');
+        loginPanel.classList.add('inactive');
+        loginPanel.classList.remove('active');
+        signupBtn.classList.add('active');
+        loginBtn.classList.remove('active');
+      }
+    }
+
+    loginBtn.addEventListener('click', ()=>setActive('login'));
+    signupBtn.addEventListener('click', ()=>setActive('signup'));
+
+    // Fake email confirmation simulation
+    signupForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      const email = signupForm.email.value;
+      alert(`A confirmation link has been sent to ${email}. Please check your inbox.`);
+    });
+  </script>
+</body>
+</html>

@@ -10,8 +10,8 @@ app.use(express.json());
 
 // --- IMPORTANT: CONFIGURE YOUR KEYS ---
 // Store these in a secure .env file in a real project, not directly in the code.
-const RAZORPAY_KEY_ID = 'YOUR_LIVE_KEY_ID'; // Replace with your LIVE Key ID from Razorpay
-const RAZORPAY_KEY_SECRET = 'YOUR_LIVE_KEY_SECRET'; // Replace with your LIVE Key Secret
+const RAZORPAY_KEY_ID = 'rzp_live_8XfqVEwOh0FURq'; // Replace with your LIVE Key ID from Razorpay
+const RAZORPAY_KEY_SECRET = 'pFSHCn07fLYWWqC6eO3Xvne9'; // Replace with your LIVE Key Secret
 
 // Initialize Razorpay with your live keys
 const razorpay = new Razorpay({

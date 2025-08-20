@@ -6,8 +6,9 @@
 }
 .shop-container {
     
-    background-color: #C3DCB7; /* A light cream background to complement your theme */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../images/plants1.jpg');
+    /* background-color: #C3DCB7; */
+     /* A light cream background to complement your theme */
+    /* background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../images/plants1.jpg'); */
     background-size: cover;
     background-position: center;
 }
@@ -16,7 +17,7 @@
 .shop-header {
     text-align: center;
     padding: 3rem 1rem;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('../images/plants1.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1)), url('../images/shop_banner1.jpg');
     background-size: cover;
     background-position: center;
     border-radius: 8px;
@@ -50,7 +51,8 @@
     max-width: 1200px;
     margin: 0 auto 3rem auto;
     padding: 1rem 1.5rem;
-    background-color: #437057; /* Using a green from your services section */
+     background-color: #437057;
+    /* Using a green from your services section */
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -98,7 +100,7 @@
 .product-image-container {
     width: 100%;
     aspect-ratio: 1 / 1; /* Creates a square container */
-    background-color: #f0f0f0;
+    background-color: none;
 }
 
 .product-card img {
@@ -119,13 +121,13 @@
 
 .product-info h3 {
     font-size: 1.2rem;
-    color: #052553;
+    color: aliceblue;
     margin-bottom: 0.5rem;
 }
 
 .product-info .price {
     font-style: italic;
-    color: darkslateblue;
+    color: #42dc68;
     margin-bottom: 1rem;
 }
 

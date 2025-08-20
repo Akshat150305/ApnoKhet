@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Step C & D: The backend sends back the order details to open Razorpay
         const options = {
-            "key": "YOUR_LIVE_KEY_ID", // IMPORTANT: Replace with your LIVE Key ID
+            "key": "rzp_live_8XfqVEwOh0FURq", // IMPORTANT: Replace with your LIVE Key ID
             "amount": order.amount,
             "currency": "INR",
             "name": "Apno Khet",
