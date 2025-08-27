@@ -698,102 +698,6 @@ header {
 
 
 
-
-/* .services{
-    background-color: #437057;
-    padding: 4rem 2rem;
-    overflow: hidden;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: space-between;
-    align-self: center;
-    position: relative;
-    align-items: center;
-    text-align: center;
-}
-
-.services .text #heading{
-   
-    font-size: 2rem;
-    color: white;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    text-shadow: 0.1rem 0.1rem 0.2rem #042408;
-}
-.services .text p{
-    color: white;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-style: oblique;
-}
-.services .booking{
-    
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    
-
-}
-.services .booking .booking1{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    column-gap: 1rem;
-    row-gap: 1rem;
-    justify-content: space-between;
-}
-.services .booking #p1{
-    color: black;
-    font-size: 1.2rem;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-.services .booking #p2{
-    color: rgb(21, 196, 24);
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    margin-top: 1rem;
-}
-.services .booking .booking1 .gardening{
-  width: 30rem;
-    background-color: #FEFAE0;
-    border-radius: 2rem;
-    padding: 2rem;
-    box-shadow: 0.2rem 0.2rem 0.4rem #052553;
-}
-.services .booking .booking1 .plantcare{
-  width: 30rem;
-    background-color: #FEFAE0;
-    border-radius: 2rem;
-    padding: 2rem;
-    box-shadow: 0.2rem 0.2rem 0.4rem #052553;
-}
-.services .booking .booking2{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    column-gap: 1rem;
-    row-gap: 1rem;
-}
-.services .booking .booking2 .landscaping{
-    background-color: #FEFAE0;
-    width: 30rem;
-    border-radius: 2rem;
-    padding: 2rem;
-    box-shadow: 0.2rem 0.2rem 0.4rem #052553;
-}
-.services .booking .booking2 .botanica{
-  width: 30rem;
-    background-color: #FEFAE0;
-    border-radius: 2rem;
-    padding: 2rem;
-    box-shadow: 0.2rem 0.2rem 0.4rem #052553;
-}
- */
-
-
-
-
-
 /* shoping cart */
 /* ===== Shopping Cart Icon in Navbar ===== */
 
@@ -995,3 +899,61 @@ header {
 .service-link:hover {
     background-color: #3b4d05;
 }
+
+
+/* ===== Promotions Slider Section ===== */
+.promotions-section {
+    padding: 4rem 2rem;
+    background-color: #f4f7f6;
+}
+
+.promotions-section h2 {
+    text-align: center;
+    font-size: 2.8rem;
+    color: var(--primary-green);
+    margin-bottom: 3rem;
+}
+
+.promotions-slider-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.promotions-slider {
+    display: flex;
+    overflow-x: auto; /* Allows horizontal scrolling */
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    padding-bottom: 1rem; /* Space for scrollbar */
+}
+
+/* Hide scrollbar */
+.promotions-slider::-webkit-scrollbar { display: none; }
+.promotions-slider { -ms-overflow-style: none; scrollbar-width: none; }
+
+.promotions-slider .product-card {
+    scroll-snap-align: start;
+    flex: 0 0 300px; /* Each card has a fixed width */
+    margin-right: 1.5rem;
+}
+
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #fff;
+    border: 1px solid var(--border-color);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.slider-nav.prev { left: -20px; }
+.slider-nav.next { right: -20px; }

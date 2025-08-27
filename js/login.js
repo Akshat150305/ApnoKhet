@@ -1,30 +1,38 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Get all the necessary elements from the DOM
-    const loginBox = document.getElementById('login-box');
-    const signupBox = document.getElementById('signup-box');
-    const showSignupLink = document.getElementById('show-signup');
-    const showLoginLink = document.getElementById('show-login');
-
+    const loginBtn = document.getElementById('loginBtn');
+    const signupBtn = document.getElementById('signupBtn');
+    const loginPanel = document.getElementById('loginPanel');
+    const signupPanel = document.getElementById('signupPanel');
+    
     const loginForm = document.getElementById('login-form');
     const signupForm = document.getElementById('signup-form');
-
+    
     const loginError = document.getElementById('login-error-message');
     const signupError = document.getElementById('signup-error-message');
 
-    // --- Toggle between Login and Sign-up forms ---
-    showSignupLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        loginBox.style.display = 'none';
-        signupBox.style.display = 'block';
-    });
+    // --- Visual Toggling Logic ---
+    function setActivePanel(panelName) {
+        if (panelName === 'login') {
+            loginPanel.classList.add('active');
+            loginPanel.classList.remove('inactive');
+            signupPanel.classList.add('inactive');
+            signupPanel.classList.remove('active');
+            loginBtn.classList.add('active');
+            signupBtn.classList.remove('active');
+        } else {
+            signupPanel.classList.add('active');
+            signupPanel.classList.remove('inactive');
+            loginPanel.classList.add('inactive');
+            loginPanel.classList.remove('active');
+            signupBtn.classList.add('active');
+            loginBtn.classList.remove('active');
+        }
+    }
 
-    showLoginLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        loginBox.style.display = 'block';
-        signupBox.style.display = 'none';
-    });
+    loginBtn.addEventListener('click', () => setActivePanel('login'));
+    signupBtn.addEventListener('click', () => setActivePanel('signup'));
 
-    // --- Sign-Up Form Logic (no changes needed here) ---
+    // --- Sign-Up Form Logic ---
     signupForm.addEventListener('submit', (e) => {
         e.preventDefault();
         signupError.textContent = ''; // Clear previous errors
@@ -45,23 +53,22 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('users', JSON.stringify(users));
 
         alert('Account created successfully! Please log in.');
-        showLoginLink.click();
-        signupForm.reset();
+        setActivePanel('login'); // Switch back to the login form
+        signupForm.reset(); // Clear the signup form fields
     });
 
     // --- Login Form Logic ---
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        loginError.textContent = '';
+        loginError.textContent = ''; // Clear previous errors
 
-        // ========== CHANGE: GET IDENTIFIER INSTEAD OF JUST USERNAME ==========
-        const identifier = loginForm.querySelector('#login-identifier').value; // This can be a username or an email
+        const identifier = loginForm.querySelector('#login-email').value; // Using email field as identifier
         const password = loginForm.querySelector('#login-password').value;
         const role = loginForm.querySelector('#login-role').value;
 
         if (role === 'admin') {
-            // Admin check remains the same
-            if (identifier === 'admin' && password === 'admin123') {
+            // Hardcoded admin check
+            if (identifier === 'apnokhet@gmail.com' && password === 'admin123') {
                 alert('Admin login successful!');
                 window.location.href = 'admin.html';
             } else {
@@ -71,12 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Dynamic user check
             const users = JSON.parse(localStorage.getItem('users')) || [];
             
-            // ========== CHANGE: UPDATED FIND LOGIC ==========
-            // The `find` method now checks if the identifier matches either the user's username OR their email.
+            // Check if identifier matches either username or email
             const validUser = users.find(user => 
                 (user.username === identifier || user.email === identifier) && user.password === password
             );
-            // ===============================================
 
             if (validUser) {
                 alert('Login successful!');

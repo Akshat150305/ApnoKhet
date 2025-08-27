@@ -122,6 +122,71 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
+    // Add this new function inside your js/index.js file
+    function renderPromotions() {
+        const slider = document.getElementById('promotions-slider');
+        const allProducts = JSON.parse(localStorage.getItem('products')) || [];
+        const promotionIds = JSON.parse(localStorage.getItem('promotionIds')) || [];
+
+        const promoProducts = allProducts.filter(product => promotionIds.includes(product.id));
+
+        if (!slider || promoProducts.length === 0) {
+            document.querySelector('.promotions-section')?.remove(); // Hide section if no promos
+            return;
+        }
+
+        slider.innerHTML = '';
+        promoProducts.forEach(product => {
+            // We re-use the product card structure
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card';
+            // (Insert the same product card innerHTML logic as your best sellers function)
+            // ...
+            productCard.innerHTML = `
+                ${discountBadgeHTML}
+                <a href="product.html?id=${product.id}" class="product-link">
+                    ${stockOverlayHTML}
+                    <div class="product-image-container">
+                        
+                        <img src="${product.image}" alt="${product.name}">
+                    </div>
+                    <div class="product-info">
+                        <h3>${product.name}</h3>
+                        ${priceHTML}
+                    </div>
+                </a>
+                <div class="product-action">
+                    <button class="add-cart" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}" ${isOutOfStock ? 'disabled' : ''}>
+                        ${isOutOfStock ? 'Out of Stock' : 'Add to Cart'}
+                    </button>
+                </div>
+            `;
+            slider.appendChild(productCard);
+        });
+        
+        // Attach cart listeners for the new cards
+        attachAddToCartListeners();
+        // Setup slider button controls
+        setupPromoSliderControls();
+    }
+
+    function setupPromoSliderControls() {
+        const slider = document.getElementById('promotions-slider');
+        const prevBtn = document.getElementById('promo-prev');
+        const nextBtn = document.getElementById('promo-next');
+        
+        if(!slider) return;
+
+        nextBtn.addEventListener('click', () => {
+            slider.scrollBy({ left: 320, behavior: 'smooth' }); // 300px card width + 20px gap
+        });
+
+        prevBtn.addEventListener('click', () => {
+            slider.scrollBy({ left: -320, behavior: 'smooth' });
+        });
+    }
+
+
     function checkLoginStatus() {
         const loginNavItem = document.getElementById('login-nav-item');
         const profileNavItem = document.getElementById('profile-nav-item');
@@ -145,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    
+    renderPromotions();
     renderBestSellers();
     updateCartIcon();
     checkLoginStatus();

@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const serviceFormTitle = document.getElementById('service-form-title');
     const bestsellerForm = document.getElementById('bestseller-form');
     const bestsellerListContainer = document.getElementById('bestseller-list-container');
-
+    const promotionForm = document.getElementById('promotion-form');
+    const promotionListContainer = document.getElementById('promotion-list-container');
     // --- NAVIGATION ---
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
@@ -151,6 +152,37 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Best sellers have been updated successfully!');
     });
 
+
+    //Promotion Management
+    function renderPromotionsManagement() {
+        promotionListContainer.innerHTML = '';
+        const currentProducts = JSON.parse(localStorage.getItem('products')) || [];
+        const promotionIds = JSON.parse(localStorage.getItem('promotionIds')) || [];
+
+        currentProducts.forEach(product => {
+            const isChecked = promotionIds.includes(product.id);
+            const item = document.createElement('div');
+            item.className = 'promotion-item';
+            item.innerHTML = `
+                <input type="checkbox" id="promo-${product.id}" value="${product.id}" ${isChecked ? 'checked' : ''}>
+                <img src="${product.image}" alt="${product.name}">
+                <label for="promo-${product.id}" class="promotion-info">
+                    <strong>${product.name}</strong>
+                    <span>ID: ${product.id}</span>
+                </label>
+            `;
+            promotionListContainer.appendChild(item);
+        });
+    }
+    promotionForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const selectedCheckboxes = promotionForm.querySelectorAll('input[type="checkbox"]:checked');
+        const selectedIds = Array.from(selectedCheckboxes).map(cb => cb.value);
+        
+        localStorage.setItem('promotionIds', JSON.stringify(selectedIds));
+        alert('Home page promotions have been updated successfully!');
+    });
+
     // --- SERVICE MANAGEMENT (CRUD) ---
     function renderServices() {
         servicesTableBody.innerHTML = '';
@@ -233,9 +265,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- INITIALIZATION ---
     function init() {
+        document.querySelector('.admin-nav li[data-target="products-section"]').click();
         showView('products-section');
         renderProducts();
         renderBestSellersManagement();
+        renderPromotionsManagement();
         renderServices();
         renderUsers();
     }

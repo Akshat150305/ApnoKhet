@@ -1,62 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login & Sign Up - Apno Khet</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login / Sign Up - Apno Khet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles/login.css">
 </head>
 <body>
-    <div class="login-container">
-        <div id="login-box" class="form-box">
-            <img src="../images/logo.webp" alt="Apno Khet Logo" class="login-logo">
-            <h2>Welcome Back!</h2>
-            <p>Please log in to your account.</p>
-
-            <form id="login-form">
-                <div class="input-group">
-                    <label for="login-identifier">Username or Email</label>
-                    <input type="text" id="login-identifier" required>
-                    </div>
-                <div class="input-group">
-                    <label for="login-password">Password</label>
-                    <input type="password" id="login-password" required>
-                </div>
-                <div class="input-group">
-                    <label for="login-role">Login as:</label>
-                    <select id="login-role">
+    <div class="card" id="card">
+        <div class="switcher">
+            <button id="loginBtn" class="active">Login</button>
+            <button id="signupBtn">Sign Up</button>
+        </div>
+        
+        <div class="panel active" id="loginPanel">
+            <h1 class="title">Login</h1>
+            <p class="subtitle">Enter your credentials to continue.</p>
+            <form id="login-form" class="fields">
+                <label class="field">
+                    <span class="label">Email</span>
+                    <input type="email" id="login-email" class="input" placeholder="your@email.com" required>
+                </label>
+                <label class="field">
+                    <span class="label">Password</span>
+                    <input type="password" id="login-password" class="input" placeholder="••••••••" required>
+                </label>
+                <label class="field">
+                    <span class="label">Login as:</span>
+                    <select id="login-role" class="input">
                         <option value="user">User</option>
                         <option value="admin">Admin</option>
                     </select>
-                </div>
-                <button type="submit" class="login-btn">Login</button>
+                </label>
+                <button class="btn" type="submit">Login</button>
                 <p id="login-error-message" class="error-message"></p>
             </form>
-            <p class="toggle-form-text">Don't have an account? <a href="#" id="show-signup">Sign Up</a></p>
         </div>
 
-        <div id="signup-box" class="form-box" style="display: none;">
-            <img src="../images/logo.webp" alt="Apno Khet Logo" class="login-logo">
-            <h2>Create Account</h2>
-            <p>Join us and start your green journey!</p>
-
-            <form id="signup-form">
-                <div class="input-group">
-                    <label for="signup-username">Username</label>
-                    <input type="text" id="signup-username" required>
-                </div>
-                <div class="input-group">
-                    <label for="signup-email">Email</label>
-                    <input type="email" id="signup-email" required>
-                </div>
-                <div class="input-group">
-                    <label for="signup-password">Password</label>
-                    <input type="password" id="signup-password" required>
-                </div>
-                <button type="submit" class="login-btn">Sign Up</button>
+        <div class="panel inactive" id="signupPanel">
+            <h1 class="title">Sign Up</h1>
+            <p class="subtitle">Create an account to get started.</p>
+            <form class="fields" id="signup-form">
+                <label class="field">
+                    <span class="label">Full name (Username)</span>
+                    <input type="text" id="signup-username" class="input" placeholder="Your Name" required>
+                </label>
+                <label class="field">
+                    <span class="label">Email</span>
+                    <input type="email" id="signup-email" class="input" placeholder="you@domain.com" required>
+                </label>
+                <label class="field">
+                    <span class="label">Password</span>
+                    <input type="password" id="signup-password" class="input" placeholder="Create a password" required>
+                </label>
+                <button class="btn" type="submit">Sign Up</button>
                 <p id="signup-error-message" class="error-message"></p>
             </form>
-            <p class="toggle-form-text">Already have an account? <a href="#" id="show-login">Log In</a></p>
         </div>
     </div>
 

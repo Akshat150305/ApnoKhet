@@ -205,3 +205,48 @@ body {
     color: #666;
     display: block;
 }
+
+
+/* ===== Promotions Management Styles (Similar to Best Sellers) ===== */
+
+.promotion-list {
+    list-style: none;
+    padding: 0;
+    max-width: 800px;
+}
+
+.promotion-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+.promotion-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+}
+
+.promotion-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.promotion-info {
+    flex-grow: 1;
+}
+
+.promotion-info strong {
+    font-size: 1.1rem;
+}
+
+.promotion-info span {
+    color: #666;
+    display: block;
+}
