@@ -1,37 +1,56 @@
-// ========== CHANGE 2: NEW LOGIN STATUS & LOGOUT LOGIC ==========
-    document.addEventListener('DOMContentLoaded', () => {    
-// ========== CHANGE 2: UPDATED LOGIN & AVATAR LOGIC ==========
-        
-        const loginNavItem = document.getElementById('login-nav-item');
-        const profileNavItem = document.getElementById('profile-nav-item');
-        const logoutButton = document.getElementById('logout-button');
-        const userAvatar = document.querySelector('.user-avatar'); // Get the new avatar div
+document.addEventListener('DOMContentLoaded', async () => {
+    // Get the navigation elements from the page
+    const loginNavItem = document.getElementById('login-nav-item');
+    const profileNavItem = document.getElementById('profile-nav-item');
+    const userAvatar = document.querySelector('.user-avatar');
+    
+    // Retrieve the authentication token from the browser's local storage
+    const token = localStorage.getItem('authtoken');
+    
+    // Define the base URL for your backend API
+    const API_BASE_URL = 'http://localhost:3000';
 
-        const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+    if (token) {
+        // --- If a token exists, assume the user is logged in ---
 
-        if (loggedInUser && loggedInUser.username) {
-            // If a user is logged in:
-            // 1. Hide the "Login" link and show the profile section.
-            loginNavItem.style.display = 'none';
-            profileNavItem.style.display = 'flex';
+        // Hide the "Login" button and show the profile icon
+        if (loginNavItem) loginNavItem.style.display = 'none';
+        if (profileNavItem) profileNavItem.style.display = 'flex';
 
-            // 2. Get the first letter of the username.
-            const firstLetter = loggedInUser.username.charAt(0);
-            
-            // 3. Set the text inside the avatar div to that letter.
-            userAvatar.textContent = firstLetter;
+        // Fetch the user's details to personalize the profile icon
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/auth/getuser`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': token // Send the token for verification
+                }
+            });
 
-        } else {
-            // If no user is logged in, show the "Login" link.
-            loginNavItem.style.display = 'block';
-            profileNavItem.style.display = 'none';
+            if (response.ok) {
+                const user = await response.json();
+                // Display the first letter of the user's name in the avatar circle
+                if (userAvatar && user.name) {
+                    userAvatar.textContent = user.name.charAt(0).toUpperCase();
+                }
+            } else {
+                // If the token is invalid or expired, log the user out
+                localStorage.removeItem('authtoken');
+                if (loginNavItem) loginNavItem.style.display = 'block';
+                if (profileNavItem) profileNavItem.style.display = 'none';
+            }
+        } catch (error) {
+            console.error('Could not fetch user data for nav bar:', error);
+            // If the server is down, show the login button as a fallback
+            if (loginNavItem) loginNavItem.style.display = 'block';
+            if (profileNavItem) profileNavItem.style.display = 'none';
         }
 
-        // Add logout functionality
-        logoutButton.addEventListener('click', () => {
-            sessionStorage.removeItem('loggedInUser');
-            alert('You have been logged out.');
-            window.location.reload();
-        });
-        // ==================== END OF CHANGE 2 ====================
-    });
+    } else {
+        // --- If no token exists, the user is logged out ---
+
+        // Show the "Login" button and hide the profile icon
+        if (loginNavItem) loginNavItem.style.display = 'block';
+        if (profileNavItem) profileNavItem.style.display = 'none';
+    }
+});

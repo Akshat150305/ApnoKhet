@@ -14,12 +14,12 @@
 
 .services-header h1 {
     font-size: 2.8rem;
-    color: #1f4d36;
+    color: #ffffff;
 }
 
 .services-header p {
     font-size: 1.1rem;
-    color: #555;
+    color: #ece7e7;
     margin-top: 0.5rem;
 }
 
@@ -61,7 +61,7 @@
 
 .service-info h3 {
     font-size: 1.5rem;
-    color: #333;
+    color: #fffdfd;
     margin-bottom: 0.75rem;
 }
 

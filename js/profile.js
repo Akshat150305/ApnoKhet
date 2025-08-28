@@ -1,8 +1,9 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     
     // --- Get User and Page Elements ---
-    let loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
     const welcomeMessage = document.getElementById('welcome-message');
+    const token = localStorage.getItem('authtoken');
+    const userAvatar = document.querySelector('.user-avatar');
 
     // --- Modal Elements ---
     const editProfileModal = document.getElementById('edit-profile-modal');
@@ -15,33 +16,61 @@ document.addEventListener('DOMContentLoaded', () => {
     const editProfileCard = document.getElementById('edit-profile-card');
     const logoutCard = document.getElementById('logout-card');
 
+    const API_BASE_URL = 'http://localhost:3000';
+
     // --- Authentication Check ---
-    if (!loggedInUser) {
+    if (!token) {
         window.location.href = 'login.html';
-        return; // Stop the script from running further
+        return;
     }
 
-    // --- Populate User Details ---
-    if (welcomeMessage) {
-        welcomeMessage.textContent = `Welcome, ${loggedInUser.username}!`;
+    // --- Fetch and Display User Data ---
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/auth/getuser`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'auth-token': token }
+        });
+
+        if (response.ok) {
+            const user = await response.json();
+            if (welcomeMessage) welcomeMessage.textContent = `Welcome, ${user.name}!`;
+            if (editProfileForm) {
+                editProfileForm.username.value = user.name;
+                editProfileForm.email.value = user.email;
+            }
+            if (userAvatar) {
+                if (user.photo) {
+                    userAvatar.style.backgroundImage = `url(${user.photo})`;
+                    userAvatar.textContent = '';
+                } else if (user.name) {
+                    userAvatar.textContent = user.name.charAt(0).toUpperCase();
+                }
+            }
+        } else {
+            localStorage.removeItem('authtoken');
+            window.location.href = 'login.html';
+        }
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+        localStorage.removeItem('authtoken');
+        window.location.href = 'login.html';
     }
 
     // --- Card Click Listeners ---
-    if(ordersCard) {
+    if (ordersCard) {
         ordersCard.addEventListener('click', () => {
-            alert('This would navigate to a dedicated order history page (functionality to be built).');
-            // In the future, this would be: window.location.href = 'orders.html';
+            alert('This would navigate to a dedicated order history page.');
         });
     }
 
-    if(editProfileCard) {
+    if (editProfileCard) {
         editProfileCard.addEventListener('click', () => openEditModal());
     }
 
-    if(logoutCard) {
+    if (logoutCard) {
         logoutCard.addEventListener('click', () => {
             if (confirm('Are you sure you want to log out?')) {
-                sessionStorage.removeItem('loggedInUser');
+                localStorage.removeItem('authtoken');
                 alert('You have been logged out.');
                 window.location.href = 'index.html';
             }
@@ -50,122 +79,80 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Modal Logic ---
     function openEditModal() {
-        if (!editProfileModal) return;
-        // Pre-fill the form with current user data
-        editProfileForm.username.value = loggedInUser.username;
-        editProfileForm.email.value = loggedInUser.email;
-        editPhotoPreview.src = loggedInUser.photo || 'https://i.imgur.com/AOLyM2T.png';
-        editProfileModal.style.display = 'flex';
+        if (editProfileModal) editProfileModal.style.display = 'flex';
     }
 
     function closeEditModal() {
-        if (!editProfileModal) return;
-        editProfileModal.style.display = 'none';
+        if (editProfileModal) editProfileModal.style.display = 'none';
     }
     
-    if(closeModalBtn) {
-        closeModalBtn.addEventListener('click', closeEditModal);
-    }
+    if (closeModalBtn) closeModalBtn.addEventListener('click', closeEditModal);
     
     window.addEventListener('click', (e) => {
-        if (e.target === editProfileModal) {
-            closeEditModal();
-        }
+        if (e.target === editProfileModal) closeEditModal();
     });
 
     // Handle photo preview in the modal
-    if(editProfileForm && editProfileForm.photo) {
+    if (editProfileForm && editProfileForm.photo) {
         editProfileForm.photo.addEventListener('change', () => {
             const file = editProfileForm.photo.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    if(editPhotoPreview) editPhotoPreview.src = e.target.result;
+                    if (editPhotoPreview) editPhotoPreview.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
         });
     }
 
-    // Handle form submission
-    if(editProfileForm) {
-        editProfileForm.addEventListener('submit', (e) => {
+    // --- UPDATE PROFILE FORM SUBMISSION ---
+    if (editProfileForm) {
+        editProfileForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const newUsername = editProfileForm.username.value;
+            const newName = editProfileForm.username.value;
             const newEmail = editProfileForm.email.value;
             const newPhotoFile = editProfileForm.photo.files[0];
 
-            // This identifier is used to find the user in localStorage, even if they change their username
-            const originalUsername = loggedInUser.username; 
-            
-            // Update the user object
-            loggedInUser.username = newUsername;
-            loggedInUser.email = newEmail;
-            
-            const updateUserStorage = (photoData) => {
+            const updateUser = (photoData) => {
+                const updatedData = {
+                    name: newName,
+                    email: newEmail,
+                };
                 if (photoData) {
-                    loggedInUser.photo = photoData; // Add new photo data if it exists
+                    updatedData.photo = photoData;
                 }
-                
-                // Update sessionStorage for the current session
-                sessionStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
 
-                // Update localStorage for persistence
-                let allUsers = JSON.parse(localStorage.getItem('users')) || [];
-                const userIndex = allUsers.findIndex(user => user.username === originalUsername);
-                if (userIndex !== -1) {
-                    allUsers[userIndex] = loggedInUser;
-                }
-                localStorage.setItem('users', JSON.stringify(allUsers));
-                
-                // Update the welcome message immediately
-                if (welcomeMessage) welcomeMessage.textContent = `Welcome, ${loggedInUser.username}!`;
-                
-                closeEditModal();
-                alert('Profile updated successfully!');
-                window.location.reload(); // Reload to update nav avatar
+                fetch(`${API_BASE_URL}/api/auth/updateuser`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'auth-token': token
+                    },
+                    body: JSON.stringify(updatedData)
+                }).then(res => res.json()).then(data => {
+                    if (data.success) {
+                        alert('Profile updated successfully!');
+                        window.location.reload(); // Reload to see changes
+                    } else {
+                        alert('Error updating profile: ' + (data.error || 'Unknown error'));
+                    }
+                }).catch(err => {
+                    console.error("Update error:", err);
+                    alert("Could not connect to the server to update profile.");
+                });
             };
             
             if (newPhotoFile) {
                 const reader = new FileReader();
                 reader.onloadend = () => {
-                    updateUserStorage(reader.result); // Save photo as base64 string
+                    updateUser(reader.result); // Save photo as base64 string
                 };
                 reader.readAsDataURL(newPhotoFile);
             } else {
-                updateUserStorage(null); // No new photo was selected
+                updateUser(null); // No new photo was selected
             }
         });
     }
-
-    // --- Shared Nav Bar Logic (for consistency) ---
-    function updateCartIcon() {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const cartCountElement = document.querySelector('.cart-item-count');
-        if (cartCountElement) {
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            cartCountElement.style.display = totalItems > 0 ? 'block' : 'none';
-            cartCountElement.textContent = totalItems;
-        }
-    }
-    
-    function checkLoginStatus() {
-        const loginNavItem = document.getElementById('login-nav-item');
-        const profileNavItem = document.getElementById('profile-nav-item');
-        const userAvatar = document.querySelector('.user-avatar');
-
-        if (loggedInUser) {
-            if(loginNavItem) loginNavItem.style.display = 'none';
-            if(profileNavItem) profileNavItem.style.display = 'flex';
-            if(userAvatar) userAvatar.textContent = loggedInUser.username.charAt(0).toUpperCase();
-        } else {
-            if(loginNavItem) loginNavItem.style.display = 'block';
-            if(profileNavItem) profileNavItem.style.display = 'none';
-        }
-    }
-
-    // --- Initialize Page ---
-    updateCartIcon();
-    checkLoginStatus();
 });

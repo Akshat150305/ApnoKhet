@@ -9,7 +9,8 @@ body {
     
     min-width: 100vw;
     font-family: 'Marcellus', serif;
-    background-color: #C3DCB7;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../images/background_byMayank4.jpg');
+    background-size: cover;
 }
 
 /* Header styling from your existing CSS */
@@ -50,13 +51,15 @@ body {
     max-height: 50rem;
     margin: 2rem auto;
     padding: 2rem;
-    background: white;
+    background-image: linear-gradient(rgba(26, 25, 25, 0.1), rgba(0, 0, 0, 0.1)), url('../images/background_byMayank1.jpg');
+    background-size: contain;
     border-radius: 8px;
 }
 
 .cart-container h1 {
     text-align: center;
     margin-bottom: 2rem;
+    color: aliceblue;
 }
 
 /* Individual cart item styling */
@@ -78,14 +81,16 @@ body {
 
 .cart-item-details {
     flex-grow: 1;
+    color: aliceblue;
 }
 
 .cart-item-details h3 {
     margin: 0 0 0.5rem 0;
+    color: aliceblue;
 }
 
 .cart-item-price {
-    color: #555;
+    color: #c9c9c9;
 }
 
 .cart-item-quantity {
@@ -117,11 +122,13 @@ body {
 .cart-summary {
     text-align: right;
     margin-top: 2rem;
+    color: aliceblue;
 }
 
 #cart-total-price {
     font-weight: bold;
     font-size: 1.5rem;
+    color: aliceblue;
 }
 
 .checkout-btn {

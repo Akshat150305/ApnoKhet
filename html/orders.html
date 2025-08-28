@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Orders - Apno Khet</title>
+    <link rel="stylesheet" href="../styles/style.css"> <link rel="stylesheet" href="../styles/orders.css"> </head>
+<body>
+    <header>
+        <nav class="navigationbar">
+            <div id="title"><img src="../images/logo.webp" id="logo" alt="Apno Khet Logo" /></div>
+            <div class="navigationtool">
+                <ul class="navigationbutton">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li id="login-nav-item"><a href="login.html">Login</a></li>
+                    <li id="profile-nav-item" style="display: none;">
+                        <a href="profile.html" class="user-avatar-link"><div class="user-avatar"></div></a>
+                    </li>
+                </ul>
+                <a href="cart.html" class="cart-icon">
+                    <img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart--v1.png" alt="Cart">
+                    <span class="cart-item-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="orders-container">
+        <h1>Your Orders</h1>
+        <div id="orders-list">
+            <p>Loading your orders...</p>
+        </div>
+    </main>
+
+    <script src="../js/orders.js"></script>
+    <script src="../js/index_login.js"></script> </body>
+</html>

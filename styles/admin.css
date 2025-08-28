@@ -17,6 +17,8 @@ body {
     color: white;
     min-height: 100vh;
     padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .admin-sidebar h2 {
@@ -43,7 +45,7 @@ body {
 
 .admin-sidebar .go-to-site {
     display: block;
-    margin: 2rem 1.5rem 1rem 1.5rem;
+    margin: auto 1.5rem 1rem 1.5rem;
     padding: 1rem;
     text-align: center;
     background-color: #55687a;
@@ -61,10 +63,15 @@ body {
 .admin-main-content {
     flex-grow: 1;
     padding: 2rem;
+    overflow-y: auto;
+    height: 100vh;
 }
 
 .admin-section {
-    display: none; /* All sections hidden by default */
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
 .admin-section h1 {
@@ -102,10 +109,8 @@ body {
     color: white;
 }
 
-.edit-btn { background-color: #2980b9; }
-.delete-btn { background-color: #c0392b; }
-.edit-service-btn { background-color: #2980b9; }
-.delete-service-btn { background-color: #c0392b; }
+.edit-btn, .edit-service-btn { background-color: #2980b9; }
+.delete-btn, .delete-service-btn { background-color: #c0392b; }
 
 .status-in-stock, .status-out-of-stock {
     padding: 0.3rem 0.6rem;
@@ -117,14 +122,14 @@ body {
 }
 .status-in-stock { background-color: #27ae60; }
 .status-out-of-stock { background-color: #c0392b; }
-.data-table .service-image { width: 100px; height: 60px; object-fit: cover; border-radius: 4px; }
+.data-table .service-image, .data-table img { width: 100px; height: 60px; object-fit: cover; border-radius: 4px; }
 
 /* Form Styling */
 .admin-form {
     background-color: white;
     padding: 2rem;
     border-radius: 5px;
-    max-width: 600px;
+    max-width: 700px;
 }
 
 .form-row { display: flex; gap: 1.5rem; }
@@ -145,11 +150,13 @@ body {
     padding: 0.8rem;
     border: 1px solid #ccc;
     border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .form-actions {
     display: flex;
     gap: 1rem;
+    margin-top: 1.5rem;
 }
 
 .form-actions button {
@@ -163,14 +170,14 @@ body {
 .save-btn { background-color: #27ae60; }
 .cancel-btn { background-color: #7f8c8d; }
 
-/* Best Sellers Management Styles */
-.bestseller-list {
+/* Best Sellers & Promotions Management Styles */
+.bestseller-list, .promotion-list {
     list-style: none;
     padding: 0;
     max-width: 800px;
 }
 
-.bestseller-item {
+.bestseller-item, .promotion-item {
     display: flex;
     align-items: center;
     gap: 1.5rem;
@@ -181,72 +188,27 @@ body {
     margin-bottom: 1rem;
 }
 
-.bestseller-item input[type="checkbox"] {
+.bestseller-item input[type="checkbox"], .promotion-item input[type="checkbox"] {
     width: 20px;
     height: 20px;
 }
 
-.bestseller-item img {
+.bestseller-item img, .promotion-item img {
     width: 60px;
     height: 60px;
     object-fit: cover;
     border-radius: 4px;
 }
 
-.bestseller-info {
+.bestseller-info, .promotion-info {
     flex-grow: 1;
 }
 
-.bestseller-info strong {
+.bestseller-info strong, .promotion-info strong {
     font-size: 1.1rem;
 }
 
-.bestseller-info span {
-    color: #666;
-    display: block;
-}
-
-
-/* ===== Promotions Management Styles (Similar to Best Sellers) ===== */
-
-.promotion-list {
-    list-style: none;
-    padding: 0;
-    max-width: 800px;
-}
-
-.promotion-item {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    padding: 1rem;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 1rem;
-}
-
-.promotion-item input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-}
-
-.promotion-item img {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 4px;
-}
-
-.promotion-info {
-    flex-grow: 1;
-}
-
-.promotion-info strong {
-    font-size: 1.1rem;
-}
-
-.promotion-info span {
+.bestseller-info span, .promotion-info span {
     color: #666;
     display: block;
 }

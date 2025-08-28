@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartTotalPriceElement = document.getElementById('cart-total-price');
     const checkoutBtn = document.getElementById('checkout-btn');
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const API_BASE_URL = 'http://localhost:3000'; // Your backend server URL
 
     // --- RENDER CART ITEMS ---
     function renderCartItems() {
@@ -63,67 +64,94 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ========== LIVE RAZORPAY PAYMENT LOGIC ==========
+    // ========== UPDATED RAZORPAY PAYMENT LOGIC ==========
     checkoutBtn.addEventListener('click', async (e) => {
         e.preventDefault();
+        
+        const token = localStorage.getItem('authtoken');
+        if (!token) {
+            alert('You must be logged in to check out.');
+            window.location.href = '/html/login.html';
+            return;
+        }
 
         const totalAmount = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-        const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
 
-        // Step A: Ask your backend to create a Razorpay order
-        const response = await fetch('/create-order', {
+        // Step 1: Create a Razorpay order from your backend
+        const orderResponse = await fetch(`${API_BASE_URL}/create-order`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ amount: totalAmount })
         });
         
-        if (!response.ok) {
+        if (!orderResponse.ok) {
             alert("Failed to create payment order. Please try again later.");
             return;
         }
-        const order = await response.json();
+        const order = await orderResponse.json();
 
-        // Step C & D: The backend sends back the order details to open Razorpay
+        // Step 2: Fetch logged-in user's details for pre-filling Razorpay form
+        let user = {};
+        try {
+            const userResponse = await fetch(`${API_BASE_URL}/api/auth/getuser`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'auth-token': token }
+            });
+            if (userResponse.ok) {
+                user = await userResponse.json();
+            }
+        } catch (err) {
+            console.error("Could not fetch user details for checkout", err);
+        }
+
+        // Step 3: Open the Razorpay checkout modal
         const options = {
-            "key": "rzp_live_8XfqVEwOh0FURq", // IMPORTANT: Replace with your LIVE Key ID
+            "key": "rzp_test_5Vf8Z1Z7Z1Y5Jg", // Using a test key for now
             "amount": order.amount,
             "currency": "INR",
             "name": "Apno Khet",
             "description": "Transaction for plants and services",
-            "image": "https://i.imgur.com/2cvD3bB.png", // A link to your logo
+            "image": "https://i.imgur.com/2cvD3bB.png", 
             "order_id": order.id,
             
-            // Step E: After payment, send the details to your backend for verification
+            // Step 4: After payment, send details to backend for verification
             "handler": async function (response){
-                const verificationResponse = await fetch('/verify-payment', {
+                const data = {
+                    razorpay_order_id: response.razorpay_order_id,
+                    razorpay_payment_id: response.razorpay_payment_id,
+                    razorpay_signature: response.razorpay_signature,
+                    products: cart.map(item => ({ productId: item.id, name: item.name, quantity: item.quantity, price: item.price })),
+                    amount: totalAmount,
+                    address: "Jaipur, Rajasthan" // Placeholder address
+                };
+
+                const verificationResponse = await fetch(`${API_BASE_URL}/verify-payment`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        razorpay_order_id: response.razorpay_order_id,
-                        razorpay_payment_id: response.razorpay_payment_id,
-                        razorpay_signature: response.razorpay_signature
-                    })
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'auth-token': token
+                    },
+                    body: JSON.stringify(data)
                 });
 
                 const result = await verificationResponse.json();
                 if (result.success) {
                     alert('Payment successful! Your order has been placed.');
                     localStorage.removeItem('cart');
-                    window.location.href = 'index.html';
+                    window.location.href = '/html/orders.html'; // Redirect to orders page
                 } else {
                     alert('Payment verification failed. Please contact support.');
                 }
             },
             "prefill": {
-                "name": loggedInUser ? loggedInUser.username : "Guest User",
-                "email": loggedInUser ? loggedInUser.email : ""
+                "name": user.name || "Guest User",
+                "email": user.email || ""
             },
-            "theme": { "color": "#465806" }
-        };
-
-        options.modal = {
-            ondismiss: function() {
-                alert("Payment was not completed. Your items are still in the cart.");
+            "theme": { "color": "#465806" },
+            "modal": {
+                "ondismiss": function() {
+                    alert("Payment was not completed. Your items are still in the cart.");
+                }
             }
         };
         

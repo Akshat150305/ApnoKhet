@@ -3,14 +3,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const signupBtn = document.getElementById('signupBtn');
     const loginPanel = document.getElementById('loginPanel');
     const signupPanel = document.getElementById('signupPanel');
-    
     const loginForm = document.getElementById('login-form');
     const signupForm = document.getElementById('signup-form');
-    
     const loginError = document.getElementById('login-error-message');
     const signupError = document.getElementById('signup-error-message');
 
-    // --- Visual Toggling Logic ---
+    // The full URL to your running backend server
+    const API_BASE_URL = 'http://localhost:3000';
+
     function setActivePanel(panelName) {
         if (panelName === 'login') {
             loginPanel.classList.add('active');
@@ -32,64 +32,54 @@ document.addEventListener('DOMContentLoaded', () => {
     loginBtn.addEventListener('click', () => setActivePanel('login'));
     signupBtn.addEventListener('click', () => setActivePanel('signup'));
 
-    // --- Sign-Up Form Logic ---
-    signupForm.addEventListener('submit', (e) => {
+    signupForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        signupError.textContent = ''; // Clear previous errors
+        signupError.textContent = '';
+        const name = document.getElementById('signup-username').value;
+        const email = document.getElementById('signup-email').value;
+        const password = document.getElementById('signup-password').value;
 
-        const username = signupForm.querySelector('#signup-username').value;
-        const email = signupForm.querySelector('#signup-email').value;
-        const password = signupForm.querySelector('#signup-password').value;
-
-        const users = JSON.parse(localStorage.getItem('users')) || [];
-
-        const userExists = users.some(user => user.username === username || user.email === email);
-        if (userExists) {
-            signupError.textContent = 'Username or email already exists.';
-            return;
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/auth/createuser`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, password })
+            });
+            const json = await response.json();
+            if (response.ok && json.authtoken) {
+                localStorage.setItem('authtoken', json.authtoken);
+                alert('Account created successfully!');
+                window.location.href = '/html/index.html';
+            } else {
+                signupError.textContent = json.errors ? json.errors[0].msg : (json.error || 'Could not sign up.');
+            }
+        } catch (err) {
+            signupError.textContent = "Cannot connect to the server. Is it running?";
         }
-
-        users.push({ username, email, password });
-        localStorage.setItem('users', JSON.stringify(users));
-
-        alert('Account created successfully! Please log in.');
-        setActivePanel('login'); // Switch back to the login form
-        signupForm.reset(); // Clear the signup form fields
     });
 
-    // --- Login Form Logic ---
-    loginForm.addEventListener('submit', (e) => {
+    loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        loginError.textContent = ''; // Clear previous errors
+        loginError.textContent = '';
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
 
-        const identifier = loginForm.querySelector('#login-email').value; // Using email field as identifier
-        const password = loginForm.querySelector('#login-password').value;
-        const role = loginForm.querySelector('#login-role').value;
-
-        if (role === 'admin') {
-            // Hardcoded admin check
-            if (identifier === 'apnokhet@gmail.com' && password === 'admin123') {
-                alert('Admin login successful!');
-                window.location.href = 'admin.html';
-            } else {
-                loginError.textContent = 'Invalid admin credentials.';
-            }
-        } else {
-            // Dynamic user check
-            const users = JSON.parse(localStorage.getItem('users')) || [];
-            
-            // Check if identifier matches either username or email
-            const validUser = users.find(user => 
-                (user.username === identifier || user.email === identifier) && user.password === password
-            );
-
-            if (validUser) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+            const json = await response.json();
+            if (response.ok && json.authtoken) {
+                localStorage.setItem('authtoken', json.authtoken);
                 alert('Login successful!');
-                sessionStorage.setItem('loggedInUser', JSON.stringify(validUser));
-                window.location.href = 'index.html';
+                window.location.href = '/html/index.html';
             } else {
-                loginError.textContent = 'Invalid credentials. Please try again.';
+                loginError.textContent = json.errors ? json.errors[0].msg : (json.error || 'Invalid credentials.');
             }
+        } catch (err) {
+            loginError.textContent = "Cannot connect to the server. Is it running?";
         }
     });
 });
